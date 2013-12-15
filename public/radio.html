@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Ron Erlih Radio</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+  <script type="text/javascript">
+
+    var songStack = ['DdGNWyq8nsQ', 'SBjQ9tuuTJQ', 'SqZNMvIEHhs'];
+
+    var params = { allowScriptAccess: "always" };
+    var atts = { id: "myytplayer" };
+    swfobject.embedSWF("http://www.youtube.com/v/DdGNWyq8nsQ?enablejsapi=1&playerapiid=ytplayer&version=3",
+                       "ytapiplayer", "425", "356", "8", null, null, params, atts);
+    var ytplayer;
+
+    function onYouTubePlayerReady(playerId) {
+      console.log('ready it is ');
+      ytplayer = document.getElementById('myytplayer');
+    }
+
+
+
+
+    function cuePlayList() {
+
+      for (var i = 0; i < songStack.length; i++) {
+        ytplayer.cuePlaylist({ playlist: songStack, startSeconds: 0, suggestedQuality: 'large' });
+      }
+      ytplayer.playVideo();
+    }
+
+    //http://gdata.youtube.com/feeds/api/videos/Db9FBvpx49M?v=2&alt=json-in-script&callback=
+    $(document).ready(function () {
+      setTimeout(function () {
+        pollEmo();
+      }, 1000);
+      console.log("maybe im ready now");
+      for (var i = 0; i < songStack.length; i++) {
+        (function (j) {
+          var $li = $("<li></li>");
+          $("#playListCntnr").append($li);
+          $.get("http://gdata.youtube.com/feeds/api/videos/" + songStack[j] + "?v=2&alt=json", function (data) {
+            if (data) {
+              $li.text(data.entry.title.$t);
+            }
+          });
+
+        })(i);
+
+      }
+
+
+    });
+
+
+
+    var lastEmo = "";
+    function pollEmo() {
+
+      //var url = "http://getimg2.eu01.aws.af.cm/getImgEmotionUrl";
+      
+      var url = "http://getimg2.eu01.aws.af.cm/get/radio";
+      setInterval(function () {
+        $.get(url).done(function (str) {
+         
+            if(lastEmo != str ) {
+              getVideoByTerm(str);
+              lastEmo = str;
+            }
+        });
+
+      }, 2000);
+
+    }
+
+
+
+
+    function getVideoByTerm(term) {
+
+      var url = "http://gdata.youtube.com/feeds/api/videos?q=" + term + "&start-index=1&max-results=50&v=2&alt=json";
+      console.log(url);
+      $.get(url).done(function (json) {
+        console.dir(json);
+        console.dir(json.feed.entry);
+        var arr = [];
+        var names = [];
+        for (var i = 0; i < json.feed.entry.length; i++) {
+          try {
+            arr.push(/video:(.*)/.exec(json.feed.entry[i].id.$t)[1]);
+            names.push(json.feed.entry[i].title.$t);
+            } catch (e) { }
+        }
+        pickAndPlay(arr, names);
+      });
+
+    }
+
+    function pickAndPlay(arr, names) {
+      var rand = parseInt(Math.random() * 50) % 50;
+      
+      arr = shuffleArr(arr);
+      ytplayer.cuePlaylist({ playlist: arr, startSeconds: 5, suggestedQuality: 'large' });
+      ytplayer.playVideo();
+     
+      $.get("http://getimg2.eu01.aws.af.cm/setYoutubeTitle/" + names[rand]).done(function (res) {
+        console.log("setYoutubeTitle reutrned =>" + res);
+        $.get("http://getimg2.eu01.aws.af.cm/getYoutubeTitle").done(function (resp) {
+          console.log("getYoutubeTitle => "+resp);
+        });
+      });
+    }
+
+    function shuffleArr(arr) {
+    
+            var i = arr.length;
+            while (--i) {
+            var j = Math.floor(Math.random() * (i + 1))
+            var temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+            }
+        
+        return arr; // for convenience, in case we want a reference to the array
+        
+        }
+
+
+
+  </script>
+  <style type="text/css">
+    div { border-radius: 10px; }
+    @font-face { font-family: xenophone; src: url('xenophone.ttf'), url('xenophone.eot'); /* IE9+ */ }
+
+    body { font-family: 'Segoe ', 'Georgia', serif; }
+    li { list-style-type: none; padding: 5px; }
+    .box-shadow { -moz-box-shadow: 0 0 5px #888; -webkit-box-shadow: 0 0 5px#888; box-shadow: 0 0 5px #888; }
+    #mainTitle { font-family: xenophone; font-size: 92px; text-align: center; }
+    #myytplayer { margin-right: 80px; }
+
+    #header { padding: 10px; background-color: #7eb9f0; }
+    #playListCntnr { position: absolute; right: 40px; padding: 10px; top: 120px; bottom: 120px; border: 1px solid #ccc; width: 300px; background-color: #fbffbc; }
+  </style>
+</head>
+
+
+<body>
+  <div style="position: absolute; right: 80px; top: 80px; bottom: 80px; border: 1px solid #ccc; background-color: White; left: 220px;"
+    class="box-shadow">
+    <div id="header" style="text-align: center">
+      <div id="mainTitle">
+        radioOfdEWorld
+      </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <div style="display: block; width: 350px; margin: 0 auto;">
+      <div id="ytapiplayer">
+        You need Flash player 8+ and JavaScript enabled to view this video.
+      </div>
+      <a href="javascript:cuePlayList();">Play</a>
+    </div>
+    <div id="playListCntnr" class="box-shadow">
+      <ul>
+      </ul>
+    </div>
+  </div>
+  <div>
+  </div>
+</body>
+</html>

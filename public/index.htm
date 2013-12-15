@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Test Page</title>
+</head>
+<body style="background:#fff; font-family:Segoe ui">
+<div style="width:920px; height:800px; margin:50px auto;-moz-box-shadow: 0 0 5px #888;-webkit-box-shadow: 0 0 5px#888;box-shadow: 0 0 5px #888; padding:30px; background-color:#dee9ff; border-radius:30px; ">
+<h1>Erlih</h1>
+
+<h2>Search Image By Image</h2>
+<form  method="post" action="/upload.php" enctype="multipart/form-data">
+  <input type="file" name="img" />
+  <input type="submit" value="go" />
+ </form>
+<h2>Image Emotion</h2>
+<form  method="post" action="/uploadImgEmotion" enctype="multipart/form-data">
+  <input type="file" name="img" />
+  <input type="submit" value="go" />
+ </form>
+ <h2>google's</h2>
+ <form  method="post" action="http://www.google.co.in/searchbyimage/upload" enctype="multipart/form-data">
+  <input type="file" name="encoded_image" />
+  <input type="submit" value="go" />
+ </form>
+ </div>
+</body>
+</html>

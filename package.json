@@ -1,0 +1,37 @@
+{
+  "name": "fetchimage",
+  "version": "0.2.0-20",
+  "author": {
+    "name": "Nodejitsu Inc.",
+    "email": "support@nodejitsu.com"
+  },
+  "subdomain": "dcapi",
+  "description": "playing with node",
+  "main": "server",
+  "keywords": [
+    "nodeapps",
+    "helloworld"
+  ],
+  "homepage": "http://nodeapps.github.com/helloworld",
+  "scripts": {
+    "start": "server.js"
+  },
+  "contributors": [
+    {
+      "name": "Doron Aviguy",
+      "email": "doronaviguy@gmail.com"
+    }
+  ],
+  "dependencies": {
+    "express": "x",
+    "request": "X",
+    "zombie":"X",
+    "poster":"X"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=0.4"
+  },
+  "analyze": false,
+  "optionalDependencies": {}
+}
