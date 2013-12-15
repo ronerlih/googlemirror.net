@@ -63,13 +63,14 @@ app.post('/upload.php',  function (req, res) {
   console.log('indx' +indx);
   var tmpName =  req.files.img.path.substring(indx+1);
     
-  var imgUrl = "http://"+ req.host +":8080/img/"+tmpName;     
+  var imgUrl = "http://"+ req.host +"/img/"+tmpName;     
   console.log('imgUrl = '+imgUrl);
     
   var options = {
     uploadUrl : 'http://www.google.com/searchbyimage/upload',
     method: 'POST',
     fileId: 'encoded_image',
+    agent: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)' 
   };
         
   poster.post(imgUrl, options, function(err, data) {
@@ -84,8 +85,8 @@ app.post('/upload.php',  function (req, res) {
       res.send("");
       return;
     }
-    console.log("data "+data);
-    console.log("\n\n\n\n");
+  //  console.log("data "+data);
+    console.log("\n");
     var mtch = data.match("HREF=\"([^\"]*)")
          
     if(mtch && mtch.length ==2) {
@@ -99,7 +100,7 @@ app.post('/upload.php',  function (req, res) {
             
       var request = require('request');
       var headers = {
-       'User-Agent': 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)' 
+       'User-Agent': 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)' 
       };
       var getData = {
         url:url, headers: headers 
@@ -110,15 +111,46 @@ app.post('/upload.php',  function (req, res) {
           return; 
         } 
         
-        console.log(body) // Print the google web page.
+        console.log(body.length) // Print the google web page.
         
-        lastGglImgs = body.match(/imgurl=(http:\/\/[^&#]*.(?:jpg|gif|png))/g).map(function ( it) { return it.substr(7)});
-        console.log("end" +lastGglImgs.length);
-        _res.json('ok');
-        guessGglImg();
+        var similarImgUrls =  body.match(/href=\"\/(search\?tbs=simg:[^\"]*)/g);
+        console.dir(similarImgUrls);
+        if(similarImgUrls && similarImgUrls.length > 1) {
+          similarImgUrls = similarImgUrls[0];
+          similarImgUrls = similarImgUrls.replace(/&amp;/g, '&');
+          console.log("****");
+          console.log(similarImgUrls);
+          similarImgUrls = 'https://google.com/'+similarImgUrls.substr(7);
+          console.log(similarImgUrls);
+          var getData = {
+            url:similarImgUrls, headers: headers 
+          };
+          request(getData, function (error, response, body) {
+            if(error) {
+              console.log(error);
+              res.send(error); 
+            }
+
+            console.log(body.length);
+            var imgs = body.match(/imgurl=(http:\/\/[^&#]*.(?:jpg|gif|png))/g);
+            if(imgs && imgs.length > 0) {
+              lastGglImgs = imgs.map(function ( it) { return it.substr(7)});
+              console.log("end" +lastGglImgs.length);
+              _res.json('ok');
+              guessGglImg();  
+            } else {
+              console.log('fail');
+              res.send('bad result'); 
+            }
+            
+          });
+        } else {
+           res.send('bad request'); 
+           console.log('bad request');
+        }
       });
     }          
-              
+         
   });
 });
 

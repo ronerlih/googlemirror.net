@@ -11,7 +11,7 @@
     var params = { allowScriptAccess: "always" };
     var atts = { id: "myytplayer" };
     swfobject.embedSWF("http://www.youtube.com/v/DdGNWyq8nsQ?enablejsapi=1&playerapiid=ytplayer&version=3",
-                       "ytapiplayer", "425", "356", "8", null, null, params, atts);
+                       "ytapiplayer", $(window).width(), $(window).height(), "8", null, null, params, atts);
     var ytplayer;
 
     function onYouTubePlayerReady(playerId) {
@@ -32,9 +32,21 @@
 
     //http://gdata.youtube.com/feeds/api/videos/Db9FBvpx49M?v=2&alt=json-in-script&callback=
     $(document).ready(function () {
+      
+      var trm = document.location.search.match('q=([^&]*)');
+      if(trm && trm.length > 1) {
+        trm = trm[1];
+        console.log(trm);
+        setTimeout(function() {
+          getVideoByTerm(trm);
+        }, 1000);
+        return;
+      }
       setTimeout(function () {
         pollEmo();
       }, 1000);
+      
+      
       console.log("maybe im ready now");
       for (var i = 0; i < songStack.length; i++) {
         (function (j) {
@@ -129,45 +141,18 @@
 
 
   </script>
-  <style type="text/css">
-    div { border-radius: 10px; }
-    @font-face { font-family: xenophone; src: url('xenophone.ttf'), url('xenophone.eot'); /* IE9+ */ }
 
-    body { font-family: 'Segoe ', 'Georgia', serif; }
-    li { list-style-type: none; padding: 5px; }
-    .box-shadow { -moz-box-shadow: 0 0 5px #888; -webkit-box-shadow: 0 0 5px#888; box-shadow: 0 0 5px #888; }
-    #mainTitle { font-family: xenophone; font-size: 92px; text-align: center; }
-    #myytplayer { margin-right: 80px; }
-
-    #header { padding: 10px; background-color: #7eb9f0; }
-    #playListCntnr { position: absolute; right: 40px; padding: 10px; top: 120px; bottom: 120px; border: 1px solid #ccc; width: 300px; background-color: #fbffbc; }
-  </style>
+   
 </head>
 
 
 <body>
-  <div style="position: absolute; right: 80px; top: 80px; bottom: 80px; border: 1px solid #ccc; background-color: White; left: 220px;"
-    class="box-shadow">
-    <div id="header" style="text-align: center">
-      <div id="mainTitle">
-        radioOfdEWorld
-      </div>
-    </div>
-    <br />
-    <br />
-    <br />
-    <div style="display: block; width: 350px; margin: 0 auto;">
+  <div style="position: absolute; left: 0px; top: 0px; bottom: 0px;right:0px;">
       <div id="ytapiplayer">
         You need Flash player 8+ and JavaScript enabled to view this video.
       </div>
-      <a href="javascript:cuePlayList();">Play</a>
+      <a href="javascript:cuePlayList();"></a>
     </div>
-    <div id="playListCntnr" class="box-shadow">
-      <ul>
-      </ul>
-    </div>
-  </div>
-  <div>
-  </div>
+
 </body>
 </html>
