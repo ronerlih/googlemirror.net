@@ -136,7 +136,7 @@ app.post('/upload.php',  function (req, res) {
             if(imgs && imgs.length > 0) {
               lastGglImgs = imgs.map(function ( it) { return it.substr(7)});
               console.log("end" +lastGglImgs.length);
-              _res.json('ok');
+              _res.send('ok');
               guessGglImg();  
             } else {
               console.log('fail');
@@ -154,7 +154,7 @@ app.post('/upload.php',  function (req, res) {
   });
 });
 
-function guessGglImg() {
+function guessGglImg(res) {
     
   console.log('imgsRslt.length = '+lastGglImgs.length);
   if(lastGglImgs.length <= 1) {
@@ -174,6 +174,7 @@ function guessGglImg() {
     str = str.substring(0,pos);
     
   lastImg = str;
+  //res(lastImg);
 }
 
 

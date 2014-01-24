@@ -1,5 +1,5 @@
 {
-  "name": "fetchimage",
+  "name": "getimg",
   "version": "0.2.0-20",
   "author": {
     "name": "Nodejitsu Inc.",
@@ -25,13 +25,11 @@
   "dependencies": {
     "express": "x",
     "request": "X",
-    "zombie":"X",
     "poster":"X"
   },
   "devDependencies": {},
   "engines": {
     "node": ">=0.4"
   },
-  "analyze": false,
   "optionalDependencies": {}
 }
