@@ -1,0 +1,17 @@
+#!upstart
+description "node.js server"
+author      "joe"
+
+start on filesystem and started networking
+stop on shutdown
+
+respawn
+respawn limit 20 5
+
+script
+    export HOME="/root"
+    chdir ~/getimg/
+    echo $$ > /var/run/mntr.pid
+    exec sudo -u root  /usr/bin/node  ~/getimg/app.js >> /var/log/mntr.sys.log 2>&1
+end script
+
