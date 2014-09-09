@@ -56,8 +56,9 @@ app.post('/upload.php',  function (req, res) {
   /*var dest =  './public/img/'+req.files.img.name;
   var log = fs.createWriteStream(dest, { 'flags': 'w' });
   log.end(req.files.img);*/
-        
-  console.log("after copy req.files.img.path +"+req.files.img.path);
+  
+  
+  console.log("image uploaded at "+req.files.img.path);
     
   var indx = req.files.img.path.lastIndexOf('/');
   console.log('indx' +indx);
@@ -70,9 +71,8 @@ app.post('/upload.php',  function (req, res) {
     uploadUrl : 'http://www.google.com/searchbyimage/upload',
     method: 'POST',
     fileId: 'encoded_image',
-    agent: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)' 
   };
-     
+        
   poster.post(imgUrl, options, function(err, data) {
            
             
@@ -85,19 +85,22 @@ app.post('/upload.php',  function (req, res) {
       res.send("");
       return;
     }
-    //fs.writeFileSync('body.txt', data);         
-    
+   console.log("data "+data);
+   // console.log("\n\n\n\n");
     var mtch = data.match("HREF=\"([^\"]*)")
          
     if(mtch && mtch.length ==2) {
-
+     
+           
+      //  var browser = new Browser();
+      var http = require("http");
       var _res = res;
             
       var url = mtch[1];
-            
+      console.log(url);   
       var request = require('request');
       var headers = {
-       'User-Agent': 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)' 
+       'User-Agent': 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)' 
       };
       var getData = {
         url:url, headers: headers 
@@ -107,52 +110,20 @@ app.post('/upload.php',  function (req, res) {
           res.send(err);
           return; 
         } 
-        console.log(1);
-        //console.log(body); // Print the google web page.
-        //fs.writeFileSync('ggl.log', body);
-        var similarImgUrls =  body.match(/href=\"\/(search\?tbs=simg:[^\"]*)/g);
-        console.dir(similarImgUrls);
-        if(similarImgUrls && similarImgUrls.length > 0) {
-          similarImgUrls = similarImgUrls[0];
-          similarImgUrls = similarImgUrls.replace(/&amp;/g, '&');
-          console.log("****");
-          console.log(similarImgUrls);
-          similarImgUrls = 'https://google.com/'+similarImgUrls.substr(7);
-          console.log(similarImgUrls);
-          var getData = {
-            url:similarImgUrls, 
-            headers: headers 
-          };
-          request(getData, function (error, response, body) {
-            if(error) {
-              console.log(error);
-              res.send(error); 
-            }
-            console.log(2);
-            fs.writeFileSync('ggl2.log', body);
-            var imgs = body.match(/imgurl=(http:\/\/[^&#]*.(?:jpg|gif|png))/g);
-            if(imgs && imgs.length > 0) {
-              lastGglImgs = imgs.map(function ( it) { return it.substr(7)});
-              console.log("end" +lastGglImgs.length);
-              _res.send('ok');
-              guessGglImg();  
-            } else {
-              console.log('fail');
-              res.send('bad result'); 
-            }
-            
-          });
-        } else {
-           res.send('bad request [similiar]'); 
-           console.log('bad request [similiar]');
-        }
+        
+        //console.log(body) // Print the google web page.
+        
+        lastGglImgs = body.match(/imgurl=(http:\/\/[^&#]*.(?:jpg|gif|png))/g).map(function ( it) { return it.substr(7)});
+        console.log("end" +lastGglImgs.length);
+        _res.json('ok');
+        guessGglImg();
       });
     }          
          
   });
 });
 
-function guessGglImg(res) {
+function guessGglImg() {
     
   console.log('imgsRslt.length = '+lastGglImgs.length);
   if(lastGglImgs.length <= 1) {
@@ -172,7 +143,6 @@ function guessGglImg(res) {
     str = str.substring(0,pos);
     
   lastImg = str;
-  //res(lastImg);
 }
 
 
@@ -511,6 +481,6 @@ app.get("/get/:key", function (req,res) {
 var ip = process.env.IP || '0.0.0.0';
 var port = process.env.PORT || '8080';
 
-app.listen(port, ip);
+app.listen(port);
 
 console .log(   "Wellcome Fetch image server Port:%d, IP:%d", port, ip);
