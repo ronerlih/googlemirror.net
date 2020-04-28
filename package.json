@@ -2,34 +2,36 @@
   "name": "getimg",
   "version": "0.2.0-20",
   "author": {
-    "name": "Nodejitsu Inc.",
-    "email": "support@nodejitsu.com"
-  },
+    		"name": "ron erlih studio",
+    		"email": "ronerlih@gmail.com"
+    		},
   "subdomain": "dcapi",
-  "description": "playing with node",
+  "description": "googleMirror",
   "main": "server",
   "keywords": [
-    "nodeapps",
-    "helloworld"
-  ],
+    		"nodeapps",
+    		"googleMirror"
+   			],
   "homepage": "http://nodeapps.github.com/helloworld",
   "scripts": {
-    "start": "server.js"
-  },
+   		 "start":"node app.js"
+  		},
   "contributors": [
-    {
-      "name": "Doron Aviguy",
-      "email": "doronaviguy@gmail.com"
-    }
-  ],
+    		{
+      		"name": "Doron Aviguy",
+      		"email": "doronaviguy@gmail.com"
+    		}
+  		],
   "dependencies": {
-    "express": "x",
-    "request": "X",
-    "poster":"X"
-  },
+    		"express": "x",
+			"request": "X",
+    		"zombie":"X",
+    		"poster":"X"
+  			},
   "devDependencies": {},
   "engines": {
-    "node": ">=0.4"
-  },
+   		 "node": ">=0.4"
+  		},
+  "analyze": false,
   "optionalDependencies": {}
 }

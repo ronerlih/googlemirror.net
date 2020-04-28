@@ -1,27 +1,565 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
-<head>
-    <title>Test Page</title>
-</head>
-<body style="background:#fff; font-family:Segoe ui">
-<div style="width:920px; height:800px; margin:50px auto;-moz-box-shadow: 0 0 5px #888;-webkit-box-shadow: 0 0 5px#888;box-shadow: 0 0 5px #888; padding:30px; background-color:#dee9ff; border-radius:30px; ">
-<h1>Erlih</h1>
+    <head>
+        <title>googleMirror &#9729;&#xFE0E; ron erlih studio</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <meta name="theme-color" content="#c9ddf7" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		  <meta name="mobile-web-app-capable" content="yes">
+		 <style>
+        ::-webkit-scrollbar {width: 0px;}
+        ::-webkit-scrollbar-button {background: #ccc}
+        ::-webkit-scrollbar-track-piece {background: #ccc}
+        ::-webkit-scrollbar-thumb {background: #888}
+        html{       overflow-x: hidden;
+                    text-align:center;
+                    color:cornflowerblue;}
+        body{       margin:0px;
+		  					background-color: black;}
+        video{      
+                    position: absolute;
+                    left: 50%;
+                    -webkit-transform:rotateY(180deg) translateX(50%); /* Safari and Chrome */
+                    -moz-transform:rotateY(180deg) translateX(50%); /* Firefox */
+						  transform: rotateY(180deg) translateX(50%);
+                    opacity: 0;
+                    z-index: 4;
+                    top:0px;
+                    width:auto;
+                    height:100vh;
 
-<h2>Search Image By Image</h2>
-<form  method="post" action="/upload.php" enctype="multipart/form-data">
-  <input type="file" name="img" />
-  <input type="submit" value="go" />
- </form>
-<h2>Image Emotion</h2>
-<form  method="post" action="/uploadImgEmotion" enctype="multipart/form-data">
-  <input type="file" name="img" />
-  <input type="submit" value="go" />
- </form>
- <h2>google's</h2>
- <form  method="post" action="http://www.google.co.in/searchbyimage/upload" enctype="multipart/form-data">
-  <input type="file" name="encoded_image" />
-  <input type="submit" value="go" />
- </form>
- </div>
-</body>
+/*                    border: 10px outset rgba(152, 169, 186, 0.38);*/
+/*
+                    border-radius: 10px;
+                    border: 1.5px solid rgba(119, 153, 201, 0.8);
+*/
+                    }
+
+        #uiFrame{   display: block;
+                    position: absolute;
+                    z-index: 100;
+			  				
+/*                    width: 100%;*/
+/*						  height: 100vh;*/
+/*
+                    border-left: 10px outset rgb(222, 222, 222);
+                    border-top: 10px outset rgb(222, 222, 222);
+                    border-bottom: 10px inset rgb(190, 190, 190);
+                    border-right: 10px inset rgb(190, 190, 190);
+*/
+
+        }
+/*
+        #uiFrame:after {
+                  content: "";
+                  position: absolute;
+                  top: -10px;
+                  left: -10px;
+                  right: -10px;
+                  bottom: -10px;
+                  border: 0.1px inset #eaeaea;
+                }
+*/
+/*
+        #uiFrame:before {
+                  content: "";
+                  position: absolute;
+                  top: 0px;
+                  left: 0px;
+                  right: 0px;
+                  bottom: 0px;
+                  border: 10px inset #afafaf;
+                }
+*/
+        canvas{     display: none;
+                    position: absolute;
+                    top:0px;
+                    width:auto;
+                    height: 100vh;
+                    opacity:1;
+                    left: 50%;
+                    -webkit-transform:rotateY(180deg) translateX(50%); /* Safari and Chrome */
+                    -moz-transform:rotateY(180deg) translateX(50%); /* Firefox */
+						  transform: rotateY(180deg) translateX(50%);
+                    z-index: 6;
+/*
+                    border-radius: 10px;
+                    border: 1.5px solid rgba(119, 153, 201, 0.8);
+*/
+                    }
+        #googleUrlDisplay{display: none;
+                    position: relative;
+                    left: 0px;
+                    top: 0px;
+
+                    height: 20px;
+/*
+                    width: calc(100% - 20px);
+                    max-width: calc(100% - 20px);
+*/
+                    text-align: left;
+                    text-indent: 70px;
+                    color: cornflowerblue;
+                    background: white;
+                    z-index: 2;
+                    white-space: nowrap;
+                    }
+        #googleLogo{display: none;
+                    position: absolute;
+                    left:10px;
+                    top:0px;
+                    height:20px;
+                    z-index:3;}
+		  #img-container{
+/*
+		  					margin-left: auto;
+		  					margin-right: auto;
+							display: block;
+*/							
+			  				top:0px;
+							position: absolute;
+							left: 50%;
+							-webkit-transform: translateX(-50%);
+							transform: translateX(-50%)
+		  }
+        #img{       top:0px;
+                    display:none;
+                    position: absolute;
+                    left: 50%;
+							-webkit-transform: translateX(-50%);
+							transform: translateX(-50%)
+/*							left:10px;*/
+                    font-size:20px; line-height:10;
+						  z-index: 1;
+/*
+                    border-radius: 10px;
+                    border: 1px solid rgba(119, 153, 201, 0.5);
+*/
+                    }
+        #systemMessege{ display: none;
+                        position: relative;
+                        left: 20px;
+                        top: 25px;
+                        color: cornflowerblue;
+                        z-index: 1;
+                        text-align: left;
+                        font-size: 0.8em;
+                        background: rgba(255, 255, 255, 0.92);
+                        padding: 15px;
+                        width: calc(100% - 70px);
+                        border-radius: 4px;
+                        font-family: arial;}
+        #allowCamera{
+                    position: absolute;
+                    top:0px;
+                    left:0px;
+						  height:100vh;
+                    width:100vw;
+                    font-size: 150%;
+                    text-align: center;
+						  background-color: white;
+						  padding-top:50px;
+            }
+        form{       display: none;}
+        #loadingSpinner{display: none;
+                    position: absolute;
+                    top:calc(50% - 15px);
+                    left: calc(50% - 15px);
+                    z-index: 10;
+                    width:30px;
+                    height:30px;}
+        #infoDiv{   margin: 0px 0px 0px;
+                    z-index: 0;
+                    display: none;
+                    max-height: 999999px;
+                    line-height: 1.2;
+                    text-align: left;
+                    width:100vw;
+						  background-color: white;}
+        #appleUsersPage{display: none;
+                    margin: 15px 0px ;
+                    padding-top:10px;
+                    color: cornflowerblue;
+                    border: 1px solid rgba(119, 153, 201, 0.5);
+                    background: white;
+                    text-shadow: 1px 1px 3px gray;
+                    box-shadow: 0px 0px 25px 2px rgba(90,90,90,0.4) inset;
+                    border-radius: 6px;}
+        #appleUserGif{width: calc(95% - 4px);
+                    margin: 26px 0px 26px;;
+                    border: 2px outset;}
+        #links{         font-size: 1em;
+                        color: cornflowerblue;
+                        padding: 20px 15px 20px;
+                        /* background: white; */
+                        /* box-shadow: 0px 0px 25px 2px rgba(90,90,90,0.4) inset; */
+                        /* background: rgba(90,90,90,0.1); */
+                        /* border: 1px solid rgba(119, 153, 201, 0.5); */
+                        /* border-radius: 6px; */
+                        padding: 10px 10px 10px;
+                        margin: 0px 0px 0px;
+								padding-bottom: 100px;
+                        text-align: center;
+                    }
+        #heresAGif{ font-size: 1em; color: gray;}
+        h1,p2,p{    margin:0px;}
+        h1{         padding-bottom: 1px;font-size: 1.7em;padding-top: 20px;color: #8fb4f7;line-height: 0.8;}
+        p{          font-size: 1.3em;}
+        #p1{        font-size:19px; padding:5px;}
+        #p2{        font-size:1.2em;}
+        #p3{         font-size:2.3em;}
+        #p4{        font-size:80%; color:gray;}
+        #p5{        font-size: 1.3em;}
+        #p6{        font-size: 1em;}
+        #pTitle{    font-size: 1.5em; text-align: center;margin-top:5px;padding-top:20px;}
+        /*#studioCredit{position:absolute; left:15px;font-size:1em;text-align: left; padding-bottom:15px;display: none;}*/
+        #studioCredit{
+                    left: 15px;
+                    font-size: 1em;
+                    text-align: center;
+                    padding-bottom: 15px;
+                    display: none;
+                    margin-left: auto;
+                    margin-right: auto;
+                    text-align: center;
+						  background-color: white;}
+        .center{    text-align: center;}
+        #mansplain{ font-size: 1.2em;margin-bottom: 20px; }
+
+        </style>
+    </head>
+    <body>
+        <div id="allowCamera">
+            <p id="p2">
+                Hi! <br>¡Hola! Здравствуй! !مرحبا  Bonjour! 嗨！ 一世! namaste! Hoi! !היי नमस्ते! hæ!
+            </p>
+            <p id="p6"><br>
+                <br><br>
+                Please make sure your <b>camera</b> is available<br><br>
+                <br><br>
+            </p>
+            <p id="p4">
+                    <a href="http://ronerlihstudio.com" target="_blank">☁ronErlihStudio</a>
+            </p>
+
+        </div>
+        <div id='uiFrame'></div>
+        <video id='video' autoplay>
+		  
+		  </video>
+        <canvas id="canvas"></canvas>
+        <div id="img-container">
+		  	<img id="img" alt="sorry.. a broken link, please wait for the next one"/>
+        <img id="googleLogo" src="googleLogo.png" />
+        	<div id="googleUrlDisplay"></div>
+        <div id="systemMessege"><p id="p5"></p></div>
+			
+        </div>
+		  <div id="appleUsersPage">
+            <div id="p1">
+                <p id="p3">
+                    ..Oh Shoot<br>
+                </p>
+                <b>
+                   Ouch, could not connect to your camera.
+                </b>
+                please try it out on your desktop computer.<br>
+                ..not to worry, your'e not missing much :)<br><br>
+                <p id="heresAGif">
+                    here's a GIF instead:
+                </p>
+                <img id="appleUserGif" src="googleMirrorNet.gif" />
+            </div>
+        </div>
+        <div id="infoDiv">
+                <p id="pTitle">
+                    googleMirror<br>
+                </p>
+                <p id="mansplain" class="center">
+                    Takes a photo and searchs google for a similar image to it<br>
+                </p>
+                <p id="links">
+                    <a href='https://s3-us-west-2.amazonaws.com/ronerlih.com/index_googleMirror.html' target="_blank">
+                        googleMirror Images
+                    </a>
+                    - photos, GIFs, and clips from googleMirror.<br>
+                    <a href='http://ronerlihstudio.com' target="_blank">
+                        ☁ ronErlihStudio
+                    </a>
+                    - more projects
+                </p>
+        </div>
+        <p id="studioCredit">
+        <em style="font-size:0.8em; color:gray;">ron erlih and doron aviguy </em>
+        <br>
+        &#9729;&#xFE0E; ron erlih studio</p>
+        <img id="loadingSpinner" src="https://s3-us-west-2.amazonaws.com/googlemirror/ajax-loader.gif">
+
+        <script>
+            var img = document.querySelector('img');
+            var canvas = document.querySelector('canvas');
+            var video = document.querySelector('video');
+            var uiFrame = document.getElementById('uiFrame');
+            var errorImageUrl = 'https://image.shutterstock.com/z/stock-photo-confused-man-scratching-head-94941589.jpg';
+
+            var opacityValue = 0;
+            var intervalReset = null;
+            var videoElementWidth;
+
+            var xhrHandle;
+            var formDataImage;
+            var blob;
+            var ajaxState;
+            var ajaxError;
+            var globalData;
+
+            var errorCallbackVideo = errorCallbackVideo;
+            var successCallbackVideo = successCallbackVideo;
+            var firstFadeInFlag = true;
+            var firstGetUserMediaErrorFlag = true;
+
+            var captchaMessege = "ok... soo, google got our robot, <br> and they don׳t like us snooping around,<br> somewhere in the forest there's a captcha box that nobody reads.<br> we're trying out another trick <br> please wait for the next image,<br> or come back another time<br> if it persists.<br> thanks.";
+            var noServiceMessege = 'hmm.. no service<br> Please check your internet connection<br>';
+            var slowServiceMessege = "hmm.. slow service<br> Please check your internet connection and we'll check our side, hallo?? haallooO?";
+            var generalErrorMessege = "scratching our heads, something went wrong,<br>Please reFRESH<br>";
+
+//get the camera stream (start the app)
+            setupCameraStream();
+//successful video - after welcome messege - play stream
+            function successCallbackVideo(stream){
+                    setTimeout(function (){
+                        $('#allowCamera').hide();
+                        if (video.mozSrcObject !== undefined){
+                            video.mozSrcObject = stream;}
+                        else if(video.srcObject !== undefined){
+									video.srcObject = stream;
+									 }
+									 else{
+                            video.src = (window.URL && window.URL.createObjectURL(stream)) || stream;
+									 
+									 }
+                        video.play();
+                        setTimeout(function(){
+                            uiFrame.style.height = String(video.clientHeight + 'px');
+                            uiFrame.style.display = "block";
+                            startGoogleMirrorTimers();
+                            },200);
+//start the interval -- choo choooooww
+                    },3000);
+            }
+//picks up: user denied camera or not compatable
+            function errorCallbackVideo(e){
+                   if (firstGetUserMediaErrorFlag == true){
+                       setTimeout(function (){setupCameraStream();},1000);
+                       firstGetUserMediaErrorFlag = false;}
+                   else{
+                       setTimeout(function (){
+                            $('#allowCamera').hide();
+                            console.log('getUserMedia Reeeejected!', e);
+                            $('#appleUsersPage').show();
+                            $('#infoDiv, #studioCredit').show();
+                            var docHeight = $( document).height( window.innerHeight);
+                            docHeight = docHeight -25;
+                            $('#studioCredit').css('top', docHeight);
+                        },3000);
+                    }
+            }
+            function processAjax(state, data){
+                switch (state){
+                    case 'success':
+                        console.log('processing  request in success state: ' + state , ', result image is: ' + data);
+                        var result = data.toString().trim();
+                        if (result != '[object Object]' && result != 'captcha'){
+                            $('#img').attr('src', data);
+                            $('#systemMessege').hide();
+                            $('#googleUrlDisplay').html( data );
+                            setTimeout(function (){imageFrontEndTransition();}, 1500);}
+                        else
+                            {console.log('Darn it! google caught our boti-bot' + '\n' +
+                                        'server will replace the google local domain it points to, its user-agent' + '\n' + 'and a few other tricks, wink wink.');
+                            $('#systemMessege').show().children('p').html(captchaMessege);
+                            $('#img').attr('src', errorImageUrl);
+                            $('#googleUrlDisplay').html( errorImageUrl );
+                            setTimeout(function (){imageFrontEndTransition();}, 1500);}
+                        break;
+                    case 'error' :
+                        ajaxError();
+                        //no internet service error
+                        $('#systemMessege').show().children('p').html(noServiceMessege);
+                        break;
+                    case 'timeout':
+                        ajaxError();
+                        $('#systemMessege').show().children('p').html(slowServiceMessege);
+                        break;
+                    default:
+                        ajaxError();
+                        $('#systemMessege').show().children('p').html(generalErrorMessege);
+                        break;
+            }
+            function ajaxError(){
+                xhrHandle.abort();
+                $('#img').attr('src', errorImageUrl);
+                $('#googleUrlDisplay').html( errorImageUrl );
+                setTimeout(function (){imageFrontEndTransition();}, 1500);
+                console.log('ajax error: ' + state);
+            }
+                return false;
+            }
+            function imageFrontEndTransition(){
+//broken links (ads, ad-block, diguising as images and other nasties)
+                try{$('#img, #googleUrlDisplay, #googleLogo').show();}
+                catch(err){
+                    console.log('errror drawing image: ' + err);
+                    $('#img').attr('src','');
+                }
+                    intervalReset = setInterval(fadeCameraOut, 15);
+                    $('#loadingSpinner, #canvas').hide();
+            }
+
+            function startGoogleMirrorTimers(){
+                if (firstFadeInFlag == true){
+                    intervalReset = setInterval(fadeCameraIn, 10);
+                    firstFadeInFlag = false;}
+                else
+                    {intervalReset = setInterval(fadeCameraIn, 15);}
+//catch all devices video initiation timing
+                setTimeout(function (){setElemetsSizes(); } ,1000);
+                console.log('googleMirror timers restarted.. get ready.. ');
+            }
+            function fadeCameraIn() {
+                if  (opacityValue >=  1){
+                    clearInterval(intervalReset);
+                    $('#loadingSpinner').show();
+                    saveFrame();
+                    $('#canvas').show();
+                    returnAjax();}
+                else
+                    {opacityValue = opacityValue + 0.0005;
+                    video.style.opacity = opacityValue;}
+            }
+            function fadeCameraOut(){
+                    if (opacityValue <=  0){
+                        clearInterval(intervalReset);
+                        startGoogleMirrorTimers();
+                    }else{
+                        opacityValue = opacityValue - 0.0005;
+                        video.style.opacity = opacityValue;
+                        }
+            }
+            function saveFrame(){
+//scale down to send to server
+                var videoWidth = $('video').width() * 0.25;
+                var videoHeight = $('video').height() *0.25;
+                $(canvas).attr({
+                        'width': videoWidth,
+                        'height': videoHeight});
+                var context = canvas.getContext('2d');
+                context.drawImage( video, 0, 0, canvas.width , canvas.height);
+
+                var dataURL = canvas.toDataURL(1);
+                blob = dataURItoBlob(dataURL);
+                var imageFile = blobToFile(blob, "img.png");
+
+//scale back up and draw
+                videoWidth = videoWidth * 4;
+                videoHeight = videoHeight * 4;
+                $(canvas).attr({
+                        'width': videoWidth ,
+                        'height': videoHeight });
+                context.drawImage( video, 0, 0, canvas.width , canvas.height);
+
+                formDataImage = new FormData();
+                formDataImage.append('img', imageFile, "img.png");
+// $('#loadingSpinner').show();
+            }
+            function returnAjax() {
+                xhrHandle =  $.ajax({
+                        type: "POST",
+                        url: "/upload.php",
+                        data: formDataImage,
+                        processData: false,
+                        contentType: false,
+                        timeout: 6000,
+                        beforeSend: function() { $('#systemMessege').hide();},
+                        success: function (){ajaxState = 'success'; ajaxError = 'success';},
+                        error: function (status, err){
+                                    ajaxState = 'error';
+                                    console.log('ajax error state, status is: ' + status + ', error is: ' + err);
+                                    ajaxError = err;
+                                    data = errorImageUrl;
+                                    processAjax(ajaxError, data);
+                                    }
+                    }).done(
+                        function( data, ajaxState, ajaxError) {
+                                    console.log('ajax call is complete');
+//release request - internet disconnet fail safe
+                                    xhrHandle.abort();
+                                    processAjax(ajaxState, data);
+                            });
+                return false;
+            }
+
+            function dataURItoBlob(dataURI) {
+// convert base64/URLEncoded data component to raw binary data held in a string
+                var byteString;
+                if (dataURI.split(',')[0].indexOf('base64') >= 0)
+                    byteString = atob(dataURI.split(',')[1]);
+                else
+                    byteString = unescape(dataURI.split(',')[1]);
+// separate out the mime component
+                var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+// write the bytes of the string to a typed array
+                var ia = new Uint8Array(byteString.length);
+                for (var i = 0; i < byteString.length; i++) {
+                    ia[i] = byteString.charCodeAt(i);
+                }
+                return new Blob([ia], {type:mimeString});
+            }
+            function blobToFile(theBlob, fileName){
+                theBlob.lastModifiedDate = new Date();
+                theBlob.name = fileName;
+                return theBlob;
+            }
+            function setElemetsSizes() {
+                videoElementWidth = $('video').width();
+                var videoElementHeight =  $('video').height();
+                $('#img').width(videoElementWidth);
+                $('#img').height(videoElementHeight);
+					 $('#img-container').width(videoElementWidth);
+                $('#infoDiv').css('margin-top',  videoElementHeight );
+//                $('#loadingSpinner').css('top', ( videoElementHeight + 100 ) * 0.5 );
+                $('#infoDiv, #studioCredit').show();
+                var docHeight = $( '#infoDiv').height() + $( '#infoDiv').offset();
+                $('#studioCredit').css('top', docHeight );
+            }
+            function setupCameraStream(){
+                navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+                window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
+
+                if (navigator.getUserMedia) {
+                navigator.getUserMedia({video: true}, successCallbackVideo, errorCallbackVideo);
+                } else {
+                console.log('Native device media streaming (getUserMedia) not supported in this browser.');
+                errorCallbackVideo();
+                }
+            }
+            </script>
+            <script>
+//google Analytics
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+                ga('create', 'UA-87492807-1', 'auto');
+                ga('send', 'pageview');
+
+            </script>
+    </body>
+
 </html>
+
+
+
+
