@@ -29,7 +29,6 @@ app.configure(function () {
   app.use(express.static(__dirname + '/public'));
 });
 
-
 app.get('/', function (req, res) {
 
   console.log("/  called #############################");
