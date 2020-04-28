@@ -28,10 +28,9 @@ app.configure(function () {
 
   app.use(express.static(__dirname + '/public'));
 });
-
 app.get('/', function (req, res) {
 
-  console.log("/  called #############################");
+  console.log("/  called ########################");
  
   fs.readFile(__dirname + '/public/index.htm', 'utf8', function (err, text) {
     if (err)
