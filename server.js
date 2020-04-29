@@ -3,9 +3,9 @@
 
 var express = require('express'),
     request = require('request'),
-    fs = require("fs"),
+    fs = require("fs");
   
-    twiter = require('./twiter');
+    // twiter = require('./twiter');
     
     
 

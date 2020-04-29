@@ -2,36 +2,36 @@
   "name": "getimg",
   "version": "0.2.0-20",
   "author": {
-    		"name": "ron erlih studio",
-    		"email": "ronerlih@gmail.com"
-    		},
+    "name": "ron erlih studio",
+    "email": "ronerlih@gmail.com"
+  },
   "subdomain": "dcapi",
   "description": "googleMirror",
   "main": "server",
   "keywords": [
-    		"nodeapps",
-    		"googleMirror"
-   			],
+    "nodeapps",
+    "googleMirror"
+  ],
   "homepage": "http://nodeapps.github.com/helloworld",
   "scripts": {
-   		 "start":"node app.js"
-  		},
+    "start": "node app.js"
+  },
   "contributors": [
-    		{
-      		"name": "Doron Aviguy",
-      		"email": "doronaviguy@gmail.com"
-    		}
-  		],
+    {
+      "name": "Doron Aviguy",
+      "email": "doronaviguy@gmail.com"
+    }
+  ],
   "dependencies": {
-    		"express": "x",
-			"request": "X",
-    		"zombie":"X",
-    		"poster":"X"
-  			},
+    "express": "3.x",
+    "request": "X",
+    "zombie": "X",
+    "poster": "X"
+  },
   "devDependencies": {},
   "engines": {
-   		 "node": ">=0.4"
-  		},
+    "node": ">=0.4"
+  },
   "analyze": false,
   "optionalDependencies": {}
 }
