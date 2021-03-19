@@ -23,10 +23,13 @@
     }
   ],
   "dependencies": {
+    "axios": "^0.19.2",
     "express": "3.x",
+    "form-data": "^3.0.0",
+    "jimp": "^0.16.1",
+    "poster": "X",
     "request": "X",
-    "zombie": "X",
-    "poster": "X"
+    "zombie": "X"
   },
   "devDependencies": {},
   "engines": {
