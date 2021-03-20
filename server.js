@@ -24,7 +24,7 @@ app.configure(function () {
 	);
 	app.use(express.methodOverride());
 	app.use(express.cookieParser());
-	app.use(express.session({ secret: "aviguy" }));
+	app.use(express.session({ secret: "batman" }));
 	app.use(app.router);
 
 	app.use(express.static(__dirname + "/public"));
@@ -41,7 +41,7 @@ app.get("/", function (req, res) {
 var lastGglImgs = [];
 
 app.post("/upload", function (req, res) {
-	console.log("///////////////upload.phps");
+	console.log("\n\n -- img upload");
 
 	if (!req.files.img) res.send("error");
 
@@ -54,7 +54,7 @@ app.post("/upload", function (req, res) {
 	var urlParmas = "?image_url=https://" + req.host + "/img/" + tmpName + "&btnG=Search+by+image&encoded_image=&image_content=&filename=&hl=en";
 	// "?image_url=https://" + req.host + ":8080/img/" + tmpName + "&btnG=Search+by+image&encoded_image=&image_content=&filename=&hl=en";
    
-   logger.trace({urlParmas});
+   console.log({urlParmas});
 	
    axios
 		.get("http://www.google.com/searchbyimage/upload" + urlParmas)
