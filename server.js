@@ -8,6 +8,8 @@ log4js.configure({
 	appenders: { googlemirror: { type: "file", filename: "node-googlemirror.log" } },
 	categories: { default: { appenders: ["googlemirror"], level: "error" } },
 });
+var logger = log4js.getLogger("googlemirror");
+
 // twiter = require('./twiter');
 const FormData = require("form-data");
 
