@@ -3,6 +3,11 @@ var express = require("express"),
 	fs = require("fs"),
 	axios = require("axios");
 
+var log4js = require("log4js");
+log4js.configure({
+	appenders: { googlemirror: { type: "file", filename: "node-googlemirror.log" } },
+	categories: { default: { appenders: ["googlemirror"], level: "error" } },
+});
 // twiter = require('./twiter');
 const FormData = require("form-data");
 
@@ -42,14 +47,18 @@ app.post("/upload", function (req, res) {
 
 	var indx = req.files.img.path.lastIndexOf("/");
 	var tmpName = req.files.img.path.substring(indx + 1);
-
-	var urlParmas =
-		"?image_url=https://" + req.host + "/img/" + tmpName + "&btnG=Search+by+image&encoded_image=&image_content=&filename=&hl=en";
-		// "?image_url=https://" + req.host + ":8080/img/" + tmpName + "&btnG=Search+by+image&encoded_image=&image_content=&filename=&hl=en";
-
-	axios
+   
+   
+	var urlParmas = "?image_url=https://" + req.host + "/img/" + tmpName + "&btnG=Search+by+image&encoded_image=&image_content=&filename=&hl=en";
+	// "?image_url=https://" + req.host + ":8080/img/" + tmpName + "&btnG=Search+by+image&encoded_image=&image_content=&filename=&hl=en";
+   
+   logger.trace({urlParmas});
+	
+   axios
 		.get("http://www.google.com/searchbyimage/upload" + urlParmas)
 		.then((result) => {
+         logger.trace({result});
+         
 			// Handle result…
 			console.log(result.data);
 			var data = result.data;
@@ -66,7 +75,6 @@ app.post("/upload", function (req, res) {
 				return;
 			}
 			//fs.writeFileSync('body.txt', data);
-			console.log(data);
 			var mtch = data.match('HREF="([^"]*)');
 
 			if (mtch && mtch.length == 2) {
@@ -130,7 +138,10 @@ app.post("/upload", function (req, res) {
 				});
 			}
 		})
-		.catch((e) => console.log(e));
+		.catch((e) => {
+         console.log(e);
+         logger.trace({e});
+      });
 });
 
 function guessGglImg(res) {
