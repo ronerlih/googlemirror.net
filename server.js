@@ -44,7 +44,8 @@ app.post("/upload", function (req, res) {
 	var tmpName = req.files.img.path.substring(indx + 1);
 
 	var urlParmas =
-		"?image_url=http://" + req.host + ":8080/img/" + tmpName + "&btnG=Search+by+image&encoded_image=&image_content=&filename=&hl=en";
+		"?image_url=https://" + req.host + "/img/" + tmpName + "&btnG=Search+by+image&encoded_image=&image_content=&filename=&hl=en";
+		// "?image_url=https://" + req.host + ":8080/img/" + tmpName + "&btnG=Search+by+image&encoded_image=&image_content=&filename=&hl=en";
 
 	axios
 		.get("http://www.google.com/searchbyimage/upload" + urlParmas)
