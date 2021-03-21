@@ -3,6 +3,13 @@ const express = require("express"),
 	fs = require("fs"),
 	axios = require("axios");
 
+const log4js = require("log4js");
+log4js.configure({
+	appenders: { googlemirror: { type: "file", filename: "node-googlemirror.log" } },
+	categories: { default: { appenders: ["googlemirror"], level: "error" } },
+});
+const logger = log4js.getLogger("googlemirror");
+
 // twiter = require('./twiter');
 const FormData = require("form-data");
 
@@ -43,21 +50,24 @@ app.post("/upload", function (req, res) {
 	var indx = req.files.img.path.lastIndexOf("/");
 	var tmpName = req.files.img.path.substring(indx + 1);
 
-	var urlParmas = "?image_url=https://mirror-snapshot-service.herokuapp.com/img/" + tmpName + "&btnG=Search+by+image&encoded_image=&image_content=&filename=&hl=en";
+	var urlParmas =
+		"?image_url=https://mirror-snapshot-service.herokuapp.com/img/" +
+		tmpName +
+		"&btnG=Search+by+image&encoded_image=&image_content=&filename=&hl=en";
 	// "?image_url=https://" + req.host + ":8080/img/" + tmpName + "&btnG=Search+by+image&encoded_image=&image_content=&filename=&hl=en";
 
 	console.log({ urlParmas });
 
 	axios
 		.get("https://www.google.com/searchbyimage/upload" + urlParmas, {
-         headers:{
-            'User-Agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36"
-         }
-      })
+			headers: {
+				"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+			},
+		})
 		.then((result) => {
-
 			// Handle result…
 			var data = result.data;
+         logger.trace({result});
 
 			// axios.post(imgUrl, options, function(err, data) {
 
@@ -71,11 +81,12 @@ app.post("/upload", function (req, res) {
 				return;
 			}
 			//fs.writeFileSync('body.txt', data);
+			console.log({ data });
 			var mtch = data.match('HREF="([^"]*)');
 
 			if (mtch && mtch.length == 2) {
 				var _res = res;
-            console.log( mtch)
+				console.log(mtch);
 				var url = mtch[1];
 
 				var request = require("request");
