@@ -49,7 +49,7 @@ app.post("/upload", function (req, res) {
 	console.log({ urlParmas });
 
 	axios
-		.get("http://www.google.com/searchbyimage/upload" + urlParmas)
+		.get("https://www.google.com/searchbyimage/upload" + urlParmas)
 		.then((result) => {
 
 			// Handle result…
