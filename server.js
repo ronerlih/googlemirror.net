@@ -5,8 +5,8 @@ const express = require("express"),
 
 const log4js = require("log4js");
 log4js.configure({
-	appenders: { googlemirror: { type: "file", filename: "node-googlemirror.log" } },
-	categories: { default: { appenders: ["googlemirror"], level: "error" } },
+	appenders: { googlemirror: { type: "stdout" } },
+	categories: { default: { appenders: ["googlemirror"], level: "info" } },
 });
 const logger = log4js.getLogger("googlemirror");
 
