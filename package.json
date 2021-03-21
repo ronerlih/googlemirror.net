@@ -14,7 +14,7 @@
   ],
   "homepage": "http://nodeapps.github.com/helloworld",
   "scripts": {
-    "start": "node app.js"
+    "start": "node server.js"
   },
   "contributors": [
     {
