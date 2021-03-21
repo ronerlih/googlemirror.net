@@ -51,7 +51,6 @@ app.post("/upload", function (req, res) {
 	axios
 		.get("http://www.google.com/searchbyimage/upload" + urlParmas)
 		.then((result) => {
-			logger.trace({ result });
 
 			// Handle result…
 			console.log(result.data);
@@ -134,7 +133,6 @@ app.post("/upload", function (req, res) {
 		})
 		.catch((e) => {
 			console.log(e);
-			logger.trace({ e });
 		});
 });
 
