@@ -2,6 +2,7 @@ const express = require("express"),
 	request = require("request"),
 	fs = require("fs"),
 	axios = require("axios");
+   delete axios.defaults.headers.common["User-Agent"];
 
 const log4js = require("log4js");
 log4js.configure({
@@ -61,6 +62,7 @@ app.post("/upload", function (req, res) {
 	axios
 		.get("https://www.google.com/searchbyimage/upload" + urlParmas, {
 			headers: {
+				"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
 			},
 		})
 		.then((result) => {
