@@ -60,7 +60,7 @@ app.post("/upload", function (req, res) {
 	console.log({ urlParmas });
 
 	axios
-		.get("https://www.google.com/searchbyimage/upload" + urlParmas, {
+		.get("https://www.google.com/searchbyimage" + urlParmas, {
 			headers: {
 				"User-Agent": " curl/7.69.1",
 				"Accept": "*/*",
