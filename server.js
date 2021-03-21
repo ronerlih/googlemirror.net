@@ -1,19 +1,12 @@
-var express = require("express"),
+const express = require("express"),
 	request = require("request"),
 	fs = require("fs"),
 	axios = require("axios");
 
-var log4js = require("log4js");
-log4js.configure({
-	appenders: { googlemirror: { type: "file", filename: "node-googlemirror.log" } },
-	categories: { default: { appenders: ["googlemirror"], level: "error" } },
-});
-var logger = log4js.getLogger("googlemirror");
-
 // twiter = require('./twiter');
 const FormData = require("form-data");
 
-var app = express();
+const app = express();
 
 app.configure(function () {
 	app.use(
@@ -49,18 +42,17 @@ app.post("/upload", function (req, res) {
 
 	var indx = req.files.img.path.lastIndexOf("/");
 	var tmpName = req.files.img.path.substring(indx + 1);
-   
-   
-	var urlParmas = "?image_url=https://googlemirror.net/img/" + tmpName + "&btnG=Search+by+image&encoded_image=&image_content=&filename=&hl=en";
+
+	var urlParmas = "?image_url=https://mirror-snapshot-service.herokuapp.com/img/" + tmpName + "&btnG=Search+by+image&encoded_image=&image_content=&filename=&hl=en";
 	// "?image_url=https://" + req.host + ":8080/img/" + tmpName + "&btnG=Search+by+image&encoded_image=&image_content=&filename=&hl=en";
-   
-   console.log({urlParmas});
-	
-   axios
+
+	console.log({ urlParmas });
+
+	axios
 		.get("http://www.google.com/searchbyimage/upload" + urlParmas)
 		.then((result) => {
-         logger.trace({result});
-         
+			logger.trace({ result });
+
 			// Handle result…
 			console.log(result.data);
 			var data = result.data;
@@ -141,9 +133,9 @@ app.post("/upload", function (req, res) {
 			}
 		})
 		.catch((e) => {
-         console.log(e);
-         logger.trace({e});
-      });
+			console.log(e);
+			logger.trace({ e });
+		});
 });
 
 function guessGglImg(res) {
