@@ -57,7 +57,6 @@ app.post("/upload", function (req, res) {
 		.then((result) => {
 
 			// Handle result…
-			console.log(result.data);
 			var data = result.data;
 
 			// axios.post(imgUrl, options, function(err, data) {
@@ -76,7 +75,7 @@ app.post("/upload", function (req, res) {
 
 			if (mtch && mtch.length == 2) {
 				var _res = res;
-
+            console.log( mtch)
 				var url = mtch[1];
 
 				var request = require("request");
