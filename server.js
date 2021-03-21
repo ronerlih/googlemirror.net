@@ -2,7 +2,7 @@ const express = require("express"),
 	request = require("request"),
 	fs = require("fs"),
 	axios = require("axios");
-   delete axios.defaults.headers.common["User-Agent"];
+delete axios.defaults.headers.common["User-Agent"];
 
 const log4js = require("log4js");
 log4js.configure({
@@ -61,13 +61,16 @@ app.post("/upload", function (req, res) {
 
 	axios
 		.get("https://www.google.com/searchbyimage/upload" + urlParmas, {
-				headers: {"User-Agent": "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)"}
-         })
+			headers: {
+				"User-Agent": "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)",
+				"Accept": "*/*",
+			},
+		})
 		.then((result) => {
 			// Handle result…
 			var data = result.data;
-         logger.trace({result});
-         console.log({result})
+			logger.trace({ result });
+			console.log({ result });
 			// axios.post(imgUrl, options, function(err, data) {
 
 			//   if (err) {
