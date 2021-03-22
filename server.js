@@ -90,7 +90,10 @@ app.post("/upload", function (req, res) {
 
 	console.log({ urlParmas });
 	// Add a request interceptor
-	getHttps("https://www.google.com/searchbyimage" + urlParmas)
+	request("https://www.google.com/searchbyimage" + urlParmas, (e, res, body) =>{
+            // if(res.headers.location.indexOf("https://www.google.com/search") >= 0) {
+
+            // }
 
 
 	// axios
@@ -100,7 +103,7 @@ app.post("/upload", function (req, res) {
 	// 			Accept: "*/*",
 	// 		},
 	// 	})
-		.then((result) => {
+		// .then((result) => {
 			// Handle result…
 			var data = result.data;
 			logger.trace({ result });
@@ -179,11 +182,13 @@ app.post("/upload", function (req, res) {
 					}
 				});
 			}
-		})
-		.catch((e) => {
-			console.log('\n\nError!!\n\n');
-			console.log(e);
-		});
+		// })
+		// .catch((e) => {
+		// 	console.log('\n\nError!!\n\n');
+		// 	console.log(e);
+		// });
+   })
+
 });
 
 function guessGglImg(res) {
