@@ -98,7 +98,7 @@ app.post("/upload", function (req, res) {
 			// Handle result…
 			var data = result.data;
 			logger.trace({ result });
-			console.log('location', result.headers.location);
+			console.log('location', Object.keys(result));
 			// axios.post(imgUrl, options, function(err, data) {
 
 			//   if (err) {
