@@ -11,7 +11,8 @@ function getHttps(url) {
          if (res.headers.location) {
             console.log('\n\n\n\nREDIRECT to:');
             console.log(res.headers.location);
-            return getHttps(res.headers.location);
+            if(res.headers.location.indexOf("https://www.google.com/search") >= 0)
+               return getHttps(res.headers.location);
          }
          
          console.log('statusCode:', res.statusCode);
