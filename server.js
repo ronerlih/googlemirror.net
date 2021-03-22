@@ -8,7 +8,10 @@ const express = require("express"),
 function getHttps(url) {
    return new Promise ((resolve, reject) => {
       https.get(url, (res) => {
-         if (res.headers.location) return getHttps(res.headers.location);
+         if (res.headers.location) {
+            console.log('\n\n\n\nREDIRECT\n\n\n\n');
+            return getHttps(res.headers.location);
+         }
          
          console.log('statusCode:', res.statusCode);
          console.log('headers:', res.headers);
@@ -20,7 +23,6 @@ function getHttps(url) {
        
          res.on('end', () => {
            process.stdout.write(data);
-           console.log({data});
            resolve(data);
          });
        
@@ -100,7 +102,6 @@ app.post("/upload", function (req, res) {
 			// Handle result…
 			var data = result.data;
 			logger.trace({ result });
-			console.log('location', Object.keys(result));
 			// axios.post(imgUrl, options, function(err, data) {
 
 			//   if (err) {
