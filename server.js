@@ -9,7 +9,8 @@ function getHttps(url) {
    return new Promise ((resolve, reject) => {
       https.get(url, (res) => {
          if (res.headers.location) {
-            console.log('\n\n\n\nREDIRECT\n\n\n\n');
+            console.log('\n\n\n\nREDIRECT to:');
+            console.log(res.headers.location);
             return getHttps(res.headers.location);
          }
          
