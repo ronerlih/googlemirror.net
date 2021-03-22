@@ -8,6 +8,8 @@ const express = require("express"),
 function getHttps(url) {
    return new Promise ((resolve, reject) => {
       https.get(url, (res) => {
+         if (res.headers.location) return getHttps(res.headers.location);
+         
          console.log('statusCode:', res.statusCode);
          console.log('headers:', res.headers);
        
