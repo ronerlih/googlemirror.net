@@ -2,7 +2,32 @@ const express = require("express"),
 	request = require("request"),
 	fs = require("fs"),
 	axios = require("axios");
-delete axios.defaults.headers.common["User-Agent"];
+   const https = require('https');
+
+
+function getHttps(url) {
+   return new Promise ((resolve, reject) => {
+      https.get(url, (res) => {
+         console.log('statusCode:', res.statusCode);
+         console.log('headers:', res.headers);
+       
+         let data = '';
+         res.on('data', (d) => {
+            data += d;
+         });
+       
+         res.on('end', () => {
+           process.stdout.write(data);
+           console.log({data});
+           resolve(data);
+         });
+       
+       }).on('error', (e) => {
+         console.error(e);
+       });
+   })
+   
+}
 
 const log4js = require("log4js");
 log4js.configure({
@@ -59,24 +84,16 @@ app.post("/upload", function (req, res) {
 
 	console.log({ urlParmas });
 	// Add a request interceptor
-	axios.interceptors.request.use(
-		function (config) {
-			console.log(`\n\n\n⚙️ config: ${JSON.stringify(config, null, 3)}`)
-			return config;
-		},
-		function (error) {
-			// Do something with request error
-			return Promise.reject(error);
-		}
-	);
+	getHttps("https://www.google.com/searchbyimage" + urlParmas)
 
-	axios
-		.get("https://www.google.com/searchbyimage" + urlParmas, {
-			headers: {
-				"User-Agent": " curl/7.69.1",
-				Accept: "*/*",
-			},
-		})
+
+	// axios
+	// 	.get("https://www.google.com/searchbyimage" + urlParmas, {
+	// 		headers: {
+	// 			"User-Agent": " curl/7.69.1",
+	// 			Accept: "*/*",
+	// 		},
+	// 	})
 		.then((result) => {
 			// Handle result…
 			var data = result.data;
@@ -159,6 +176,7 @@ app.post("/upload", function (req, res) {
 			}
 		})
 		.catch((e) => {
+			console.log('\n\nError!!\n\n');
 			console.log(e);
 		});
 });
