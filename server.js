@@ -61,7 +61,7 @@ app.post("/upload", function (req, res) {
 	// Add a request interceptor
 	axios.interceptors.request.use(
 		function (config) {
-			console.log({config})
+			console.log(`\n\n\n⚙️ config: ${JSON.stringify(config, null, 3)}`)
 			return config;
 		},
 		function (error) {
