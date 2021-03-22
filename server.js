@@ -58,12 +58,23 @@ app.post("/upload", function (req, res) {
 	// "?image_url=https://" + req.host + ":8080/img/" + tmpName + "&btnG=Search+by+image&encoded_image=&image_content=&filename=&hl=en";
 
 	console.log({ urlParmas });
+	// Add a request interceptor
+	axios.interceptors.request.use(
+		function (config) {
+			console.log({config})
+			return config;
+		},
+		function (error) {
+			// Do something with request error
+			return Promise.reject(error);
+		}
+	);
 
 	axios
 		.get("https://www.google.com/searchbyimage" + urlParmas, {
 			headers: {
 				"User-Agent": " curl/7.69.1",
-				"Accept": "*/*",
+				Accept: "*/*",
 			},
 		})
 		.then((result) => {
