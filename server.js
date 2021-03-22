@@ -108,7 +108,7 @@ app.post("/upload", function (req, res) {
 		// .then((result) => {
 			// Handle result…
 			var data = result.data;
-         console.log({result})
+         console.log({data})
          console.log('-'.repeat(30), '\n\n')
 			// axios.post(imgUrl, options, function(err, data) {
 
