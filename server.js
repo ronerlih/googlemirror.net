@@ -90,7 +90,9 @@ app.post("/upload", function (req, res) {
 
 	console.log({ urlParmas });
 	// Add a request interceptor
-	request("https://www.google.com/searchbyimage" + urlParmas, (e, result, body) =>{
+	request("https://www.google.com/searchbyimage" + urlParmas, {
+      "followRedirect": true
+   }, (e, result, body) =>{
             // if(res.headers.location.indexOf("https://www.google.com/search") >= 0) {
 
             // }
@@ -108,7 +110,6 @@ app.post("/upload", function (req, res) {
 			var data = result.data;
          console.log({result})
          console.log('-'.repeat(30), '\n\n')
-			logger.trace({ result });
 			// axios.post(imgUrl, options, function(err, data) {
 
 			//   if (err) {
@@ -129,7 +130,6 @@ app.post("/upload", function (req, res) {
 				console.log(mtch);
 				var url = mtch[1];
 
-				var request = require("request");
 				var headers = {
 					"User-Agent": "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)",
 				};
