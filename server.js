@@ -90,7 +90,7 @@ app.post("/upload", function (req, res) {
 
 	console.log({ urlParmas });
 	// Add a request interceptor
-	request("https://www.google.com/searchbyimage" + urlParmas, (e, res, body) =>{
+	request("https://www.google.com/searchbyimage" + urlParmas, (e, result, body) =>{
             // if(res.headers.location.indexOf("https://www.google.com/search") >= 0) {
 
             // }
@@ -106,6 +106,8 @@ app.post("/upload", function (req, res) {
 		// .then((result) => {
 			// Handle result…
 			var data = result.data;
+         console.log({result})
+         console.log('-'.repeat(30), '\n\n')
 			logger.trace({ result });
 			// axios.post(imgUrl, options, function(err, data) {
 
