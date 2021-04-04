@@ -91,18 +91,19 @@ app.post("/upload", function (req, res) {
 	request(
 		"https://www.google.com/searchbyimage" + urlParmas,
 		{
-			"followRedirect": false
+			followRedirect: false,
 		},
-		(e, result, googleReult) => {
+		(e, result, body) => {
 			console.log("\n\n\n\n\n\n\n", result.headers.location);
 			// if(res.headers.location.indexOf("https://www.google.com/search") >= 0) {
 			// request(result.headers.location, async (e, googleReult, redirectBody) => {
-				// console.log("💎 [node]:", "googleResponse: ", googleReult);
-				// console.log("💎 [node]:", "googleReult keys", Object.keys(googleReult));
-				console.log("💎 [node]:", "redirectBody", googleReult);
-				// }
+			// console.log("💎 [node]:", "googleResponse: ", googleReult);
+			// console.log("💎 [node]:", "googleReult keys", Object.keys(googleReult));
+			const redirectFromGoogle = body.match(/https:\/\/www.google.com\/search\?tbs.+"/g).slice(0, -1);
+			console.log("💎 [node]:", "redirectBody", body);
+			// }
 
-				// axios
+			request(redirectFromGoogle, (e, result, googleReult) => {
 				// 	.get("https://www.google.com/searchbyimage" + urlParmas, {
 				// 		headers: {
 				// 			"User-Agent": " curl/7.69.1",
@@ -112,88 +113,90 @@ app.post("/upload", function (req, res) {
 				// .then((result) => {
 				// Handle result…
 				// var data = result.data;
-				console.log(googleReult.match(/src=".+\.....?"/gmi));
+				console.log(googleReult.match(/src=".+\.....?"/gim));
 				console.log("-".repeat(30), "\n\n");
 				// axios.post(imgUrl, options, function(err, data) {
-
-				//   if (err) {
-				//     console.log(err)
-				//     res.send(err);
-				//     return;
-				// }
-				if (!data) {
-					res.send("");
-					return;
-				}
-				//fs.writeFileSync('body.txt', data);
-				console.log({ data });
-				var mtch = data.match('HREF="([^"]*)');
-
-				if (mtch && mtch.length == 2) {
-					var _res = res;
-					console.log(mtch);
-					var url = mtch[1];
-
-					var headers = {
-						"User-Agent": "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)",
-					};
-					var getData = {
-						url: url,
-						headers: headers,
-					};
-					request(getData, function (error, response, body) {
-						if (err) {
-							res.send(err);
-							return;
-						}
-						console.log(1);
-						//console.log(body); // Print the google web page.
-						//fs.writeFileSync('ggl.log', body);
-						var similarImgUrls = body.match(/href=\"\/(search\?tbs=simg:[^\"]*)/g);
-						console.dir(similarImgUrls);
-						if (similarImgUrls && similarImgUrls.length > 0) {
-							similarImgUrls = similarImgUrls[0];
-							similarImgUrls = similarImgUrls.replace(/&amp;/g, "&");
-							console.log("****");
-							console.log(similarImgUrls);
-							similarImgUrls = "https://google.com/" + similarImgUrls.substr(7);
-							console.log(similarImgUrls);
-							var getData = {
-								url: similarImgUrls,
-								headers: headers,
-							};
-							request(getData, function (error, response, body) {
-								if (error) {
-									console.log(error);
-									res.send(error);
-								}
-								console.log(2);
-								fs.writeFileSync("ggl2.log", body);
-								var imgs = body.match(/imgurl=(http:\/\/[^&#]*.(?:jpg|gif|png))/g);
-								if (imgs && imgs.length > 0) {
-									lastGglImgs = imgs.map(function (it) {
-										return it.substr(7);
-									});
-									console.log("end" + lastGglImgs.length);
-									_res.send("ok");
-									guessGglImg();
-								} else {
-									console.log("fail");
-									res.send("bad result");
-								}
-							});
-						} else {
-							res.send("bad request [similiar]");
-							console.log("bad request [similiar]");
-						}
-					});
-				}
-				// })
-				// .catch((e) => {
-				// 	console.log('\n\nError!!\n\n');
-				// 	console.log(e);
-				// });
 			});
+
+			//   if (err) {
+			//     console.log(err)
+			//     res.send(err);
+			//     return;
+			// }
+			if (!data) {
+				res.send("");
+				return;
+			}
+			//fs.writeFileSync('body.txt', data);
+			console.log({ data });
+			var mtch = data.match('HREF="([^"]*)');
+
+			if (mtch && mtch.length == 2) {
+				var _res = res;
+				console.log(mtch);
+				var url = mtch[1];
+
+				var headers = {
+					"User-Agent": "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)",
+				};
+				var getData = {
+					url: url,
+					headers: headers,
+				};
+				request(getData, function (error, response, body) {
+					if (err) {
+						res.send(err);
+						return;
+					}
+					console.log(1);
+					//console.log(body); // Print the google web page.
+					//fs.writeFileSync('ggl.log', body);
+					var similarImgUrls = body.match(/href=\"\/(search\?tbs=simg:[^\"]*)/g);
+					console.dir(similarImgUrls);
+					if (similarImgUrls && similarImgUrls.length > 0) {
+						similarImgUrls = similarImgUrls[0];
+						similarImgUrls = similarImgUrls.replace(/&amp;/g, "&");
+						console.log("****");
+						console.log(similarImgUrls);
+						similarImgUrls = "https://google.com/" + similarImgUrls.substr(7);
+						console.log(similarImgUrls);
+						var getData = {
+							url: similarImgUrls,
+							headers: headers,
+						};
+						request(getData, function (error, response, body) {
+							if (error) {
+								console.log(error);
+								res.send(error);
+							}
+							console.log(2);
+							fs.writeFileSync("ggl2.log", body);
+							var imgs = body.match(/imgurl=(http:\/\/[^&#]*.(?:jpg|gif|png))/g);
+							if (imgs && imgs.length > 0) {
+								lastGglImgs = imgs.map(function (it) {
+									return it.substr(7);
+								});
+								console.log("end" + lastGglImgs.length);
+								_res.send("ok");
+								guessGglImg();
+							} else {
+								console.log("fail");
+								res.send("bad result");
+							}
+						});
+					} else {
+						res.send("bad request [similiar]");
+						console.log("bad request [similiar]");
+					}
+				});
+			}
+			// })
+			// .catch((e) => {
+			// 	console.log('\n\nError!!\n\n');
+			// 	console.log(e);
+			// });
+		}
+	);
 });
 
 function guessGglImg(res) {
