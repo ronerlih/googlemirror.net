@@ -96,7 +96,7 @@ app.post("/upload", function (req, res) {
       console.log('\n\n\n\n\n\n\n', result.headers.location)
             // if(res.headers.location.indexOf("https://www.google.com/search") >= 0) {
       const data = await axios.get(result.headers.location);
-      console.log(data)
+      console.log(data.body)
             // }
 
 
@@ -110,7 +110,7 @@ app.post("/upload", function (req, res) {
 		// .then((result) => {
 			// Handle result…
 			// var data = result.data;
-         console.log(body.match(/src=".*[a-z]"/gi))
+         console.log(data.body.match(/src=".*[a-z]"/gi))
          console.log('-'.repeat(30), '\n\n')
 			// axios.post(imgUrl, options, function(err, data) {
 
