@@ -108,8 +108,18 @@ app.post("/upload", function (req, res) {
             followRedirect: true,
             headers: {
                			"User-Agent": " curl/7.69.1",
-               			Accept: "*/*",
-               		},
+               			Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+                        Cookie: "CGIC=IocBdGV4dC9odG1sLGFwcGxpY2F0aW9uL3hodG1sK3htbCxhcHBsaWNhdGlvbi94bWw7cT0wLjksaW1hZ2UvYXZpZixpbWFnZS93ZWJwLGltYWdlL2FwbmcsKi8qO3E9MC44LGFwcGxpY2F0aW9uL3NpZ25lZC1leGNoYW5nZTt2PWIzO3E9MC45; OTZ=5902296_72_76_104100_72_446760; SEARCH_SAMESITE=CgQInZIB; SID=8QeKnTnAmEc2rd4DQDIW2IRhjh89McfNUkOB2xNdZ3GysOD_xczRD6OORDbPgkUMvMDHSg.; __Secure-3PSID=8QeKnTnAmEc2rd4DQDIW2IRhjh89McfNUkOB2xNdZ3GysOD_Fm2usY8-BwpP_BDd4yWbdg.; HSID=AlWdAPjKcDMBgJDRr; SSID=AZsNv6rELLYvw3vFA; APISID=zn_ejtjOMjC_nIQZ/Audi2xXODlZXYEfb_; SAPISID=1n-HT7lirx8nIYa5/ADcE2FTHlXppho5VN; __Secure-3PAPISID=1n-HT7lirx8nIYa5/ADcE2FTHlXppho5VN; NID=212=sxjObuvNn9R0PFf55SSx5MmPtQv8wgn--Ti1pDaCyCcTt2UfPcGvDKMk_cQvNvXIMJttuNtJTEoPZ66iUI4J_91GVJdf65Cl82Q2-MXEM6PlZAl4JuHwbB2bauOBolIy-RGBwSgLPUIKwfuS0AVyalab6_iBX7xNYiKQPVZQOZ3wfy_ylwLJ9YoZXSiy1VP82f9M3os-Gg5wzLZ94ZAFm0SFy6-T0xTSMKwqIIn0evbsHgWGsb6IGtbCxRKlZ_hMGGw2-k6C1vaUv4ZYcg3sCvucHhOhJHaEe9DoTq5kR_hGYaW66kP1UzfJxCIk81w9suU; 1P_JAR=2021-04-04-21; SIDCC=AJi4QfHu3VEkmadc_Ksb-Tu1HqQJupbiy29zC3-OZ8W9jCx4QVBwxntrYoc-d_QGSF4dzUNjULo; __Secure-3PSIDCC=AJi4QfGFF0Stmtwz8mAt9mjlEAigKYjXv9qlRQjbkQ7-eFXKbtyTYbEIibPWCpDqygXfbIQlIgY",
+                        "Sec-Fetch-Mode": "navigate",
+                        "X-Client-Data": `CJK2yQEIpLbJAQjEtskBCKmdygEIlqzKAQj4x8oBCIHnygEIsZrLAQjknMsBCKidywEI6J3LAQjg78sBGOCaywE=
+                        Decoded:
+                        message ClientVariations {
+                          // Active client experiment variation IDs.
+                          repeated int32 variation_id = [3300114, 3300132, 3300164, 3313321, 3315222, 3318776, 3322753, 3329329, 3329636, 3329704, 3329768, 3340256];
+                          // Active client experiment variation IDs that trigger server-side behavior.
+                          repeated int32 trigger_variation_id = [3329376];
+                        }`
+                     },
          }, (e, result, googleReult) => {
 				// 	.get("https://www.google.com/searchbyimage" + urlParmas, {
 				// 		headers: {
