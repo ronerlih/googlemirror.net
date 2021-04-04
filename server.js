@@ -93,7 +93,7 @@ app.post("/upload", function (req, res) {
 		{
 			// "followRedirect": false
 		},
-		(e, result, body) => {
+		(e, result, googleReult) => {
 			console.log("\n\n\n\n\n\n\n", result.headers.location);
 			// if(res.headers.location.indexOf("https://www.google.com/search") >= 0) {
 			// request(result.headers.location, async (e, googleReult, redirectBody) => {
