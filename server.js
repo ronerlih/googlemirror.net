@@ -91,7 +91,7 @@ app.post("/upload", function (req, res) {
 	request(
 		"https://www.google.com/searchbyimage" + urlParmas,
 		{
-			// "followRedirect": false
+			"followRedirect": true
 		},
 		(e, result, googleReult) => {
 			console.log("\n\n\n\n\n\n\n", result.headers.location);
