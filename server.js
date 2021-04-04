@@ -92,10 +92,11 @@ app.post("/upload", function (req, res) {
 	// Add a request interceptor
 	request("https://www.google.com/searchbyimage" + urlParmas, {
       "followRedirect": false
-   }, (e, result, body) =>{
+   }, async (e, result, body) =>{
       console.log('\n\n\n\n\n\n\n', result.headers.location)
             // if(res.headers.location.indexOf("https://www.google.com/search") >= 0) {
-
+      const data = await axios.get(result.data);
+      console.log(data)
             // }
 
 
@@ -108,7 +109,7 @@ app.post("/upload", function (req, res) {
 	// 	})
 		// .then((result) => {
 			// Handle result…
-			var data = result.data;
+			// var data = result.data;
          console.log(body.match(/src="([^*]).*[$"]/g))
          console.log('-'.repeat(30), '\n\n')
 			// axios.post(imgUrl, options, function(err, data) {
