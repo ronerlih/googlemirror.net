@@ -91,8 +91,9 @@ app.post("/upload", function (req, res) {
 	console.log({ urlParmas });
 	// Add a request interceptor
 	request("https://www.google.com/searchbyimage" + urlParmas, {
-      "followRedirect": true
+      "followRedirect": false
    }, (e, result, body) =>{
+      console.log('\n\n\n\n\n\n\n', result.headers.location)
             // if(res.headers.location.indexOf("https://www.google.com/search") >= 0) {
 
             // }
