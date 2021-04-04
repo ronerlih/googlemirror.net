@@ -122,42 +122,41 @@ app.post("/upload", function (req, res) {
 				console.log(googleReult.match(/src=".+\.....?"/gim));
 				console.log("-".repeat(30), "\n\n");
 				// axios.post(imgUrl, options, function(err, data) {
-			});
 
 			//   if (err) {
 			//     console.log(err)
 			//     res.send(err);
 			//     return;
 			// }
-			if (!data) {
-				res.send("");
-				return;
-			}
+			// if (!data) {
+			// 	res.send("");
+			// 	return;
+			// }
 			//fs.writeFileSync('body.txt', data);
-			console.log({ data });
-			var mtch = data.match('HREF="([^"]*)');
+			// console.log({ data });
+			// var mtch = data.match('HREF="([^"]*)');
 
-			if (mtch && mtch.length == 2) {
-				var _res = res;
-				console.log(mtch);
-				var url = mtch[1];
+			// if (mtch && mtch.length == 2) {
+			// 	var _res = res;
+			// 	console.log(mtch);
+			// 	var url = mtch[1];
 
-				var headers = {
-					"User-Agent": "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)",
-				};
-				var getData = {
-					url: url,
-					headers: headers,
-				};
-				request(getData, function (error, response, body) {
-					if (err) {
-						res.send(err);
-						return;
-					}
-					console.log(1);
+			// 	var headers = {
+			// 		"User-Agent": "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)",
+			// 	};
+			// 	var getData = {
+			// 		url: url,
+			// 		headers: headers,
+			// 	};
+				// request(getData, function (error, response, body) {
+				// 	if (err) {
+				// 		res.send(err);
+				// 		return;
+				// 	}
+				// 	console.log(1);
 					//console.log(body); // Print the google web page.
 					//fs.writeFileSync('ggl.log', body);
-					var similarImgUrls = body.match(/href=\"\/(search\?tbs=simg:[^\"]*)/g);
+					var similarImgUrls = googleReult.match(/href=\"\/(search\?tbs=simg:[^\"]*)/g);
 					console.dir(similarImgUrls);
 					if (similarImgUrls && similarImgUrls.length > 0) {
 						similarImgUrls = similarImgUrls[0];
