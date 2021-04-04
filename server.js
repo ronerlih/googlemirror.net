@@ -97,8 +97,8 @@ app.post("/upload", function (req, res) {
 			console.log("\n\n\n\n\n\n\n", result.headers.location);
 			// if(res.headers.location.indexOf("https://www.google.com/search") >= 0) {
 			// request(result.headers.location, async (e, googleReult, redirectBody) => {
-				console.log("💎 [node]:", "googleResponse: ", googleReult);
-				console.log("💎 [node]:", "googleReult keys", Object.keys(googleReult));
+				// console.log("💎 [node]:", "googleResponse: ", googleReult);
+				// console.log("💎 [node]:", "googleReult keys", Object.keys(googleReult));
 				console.log("💎 [node]:", "redirectBody", redirectBody);
 				// }
 
@@ -112,7 +112,7 @@ app.post("/upload", function (req, res) {
 				// .then((result) => {
 				// Handle result…
 				// var data = result.data;
-				console.log(data.match(/src=".*[a-z]"/gi));
+				console.log(redirectBody.match(/src=".*[a-z]"/gi));
 				console.log("-".repeat(30), "\n\n");
 				// axios.post(imgUrl, options, function(err, data) {
 
