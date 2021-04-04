@@ -119,7 +119,7 @@ app.post("/upload", function (req, res) {
             console.log({result})
             console.log("googleReult: ",googleReult)
 
-				// console.log(googleReult.match(/src=".+\.....?"/gim));
+				// console.log(googleReult.match(/≈src=".+\.....?"/gim));
 				console.log("-".repeat(30), "\n\n");
 				// axios.post(imgUrl, options, function(err, data) {
 
@@ -156,7 +156,9 @@ app.post("/upload", function (req, res) {
 				// 	console.log(1);
 					//console.log(body); // Print the google web page.
 					//fs.writeFileSync('ggl.log', body);
-					var similarImgUrls = googleReult.match(/href=\"\/(search\?tbs=simg:[^\"]*)/g);
+				console.log(googleReult.match(/src=".+\.....?"/gim));
+            // var similarImgUrls = googleReult.match(/href=\"\/(search\?tbs=simg:[^\"]*)/g);
+            var similarImgUrls = googleReult.match(/src=".+\.....?"/gim);
 					console.log(similarImgUrls);
 					if (similarImgUrls && similarImgUrls.length > 0) {
 						similarImgUrls = similarImgUrls[0];
