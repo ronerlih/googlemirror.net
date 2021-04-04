@@ -96,7 +96,7 @@ app.post("/upload", function (req, res) {
 		(e, result, body) => {
 			console.log("\n\n\n\n\n\n\n", result.headers.location);
 			// if(res.headers.location.indexOf("https://www.google.com/search") >= 0) {
-			request(result.headers.location, async (e, googleReult, redirectBody) => {
+			// request(result.headers.location, async (e, googleReult, redirectBody) => {
 				console.log("💎 [node]:", "googleResponse: ", googleReult);
 				console.log("💎 [node]:", "googleReult keys", Object.keys(googleReult));
 				console.log("💎 [node]:", "redirectBody", redirectBody);
