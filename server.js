@@ -168,7 +168,7 @@ app.post("/upload", function (req, res) {
 				// console.log(googleReult.match(/src=".+\.....?"/gim));
             console.log(googleReult.match(/data:image\/".+.?"/gim));
             // var similarImgUrls = googleReult.match(/href=\"\/(search\?tbs=simg:[^\"]*)/g);
-            var similarImgUrls = googleReult.match(/data:image\/".+.?"/gim);
+            var similarImgUrls = googleReult.match(/var s='data:image.+';/gim);
 					console.log(similarImgUrls);
 					if (similarImgUrls && similarImgUrls.length > 0) {
 						similarImgUrls = similarImgUrls[0];
