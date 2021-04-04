@@ -95,7 +95,7 @@ app.post("/upload", function (req, res) {
    }, async (e, result, body) =>{
       console.log('\n\n\n\n\n\n\n', result.headers.location)
             // if(res.headers.location.indexOf("https://www.google.com/search") >= 0) {
-      const data = await axios.get(result.data);
+      const data = await axios.get(result.headers.location);
       console.log(data)
             // }
 
