@@ -99,7 +99,7 @@ app.post("/upload", function (req, res) {
 			// request(result.headers.location, async (e, googleReult, redirectBody) => {
 				// console.log("💎 [node]:", "googleResponse: ", googleReult);
 				// console.log("💎 [node]:", "googleReult keys", Object.keys(googleReult));
-				console.log("💎 [node]:", "redirectBody", redirectBody);
+				console.log("💎 [node]:", "redirectBody", googleReult);
 				// }
 
 				// axios
@@ -112,7 +112,7 @@ app.post("/upload", function (req, res) {
 				// .then((result) => {
 				// Handle result…
 				// var data = result.data;
-				console.log(redirectBody.match(/src=".*[a-z]"/gi));
+				console.log(googleReult.match(/src=".*[a-z]"/gi));
 				console.log("-".repeat(30), "\n\n");
 				// axios.post(imgUrl, options, function(err, data) {
 
