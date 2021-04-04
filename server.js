@@ -113,6 +113,11 @@ app.post("/upload", function (req, res) {
 				// .then((result) => {
 				// Handle result…
 				// var data = result.data;
+
+            console.log({e})
+            console.log({result})
+            console.log("res.body: ",result.body)
+
 				console.log(googleReult.match(/src=".+\.....?"/gim));
 				console.log("-".repeat(30), "\n\n");
 				// axios.post(imgUrl, options, function(err, data) {
