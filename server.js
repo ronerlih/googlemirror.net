@@ -2,35 +2,37 @@ const express = require("express"),
 	request = require("request"),
 	fs = require("fs"),
 	axios = require("axios");
-const https = require("https");
+   const https = require('https');
+
 
 function getHttps(url) {
-	return new Promise((resolve, reject) => {
-		https
-			.get(url, (res) => {
-				if (res.headers.location) {
-					console.log("\n\n\n\nREDIRECT to:");
-					console.log(res.headers.location);
-					if (res.headers.location.indexOf("https://www.google.com/search") >= 0) return getHttps(res.headers.location);
-				}
-
-				console.log("statusCode:", res.statusCode);
-				console.log("headers:", res.headers);
-
-				let data = "";
-				res.on("data", (d) => {
-					data += d;
-				});
-
-				res.on("end", () => {
-					process.stdout.write(data);
-					resolve(data);
-				});
-			})
-			.on("error", (e) => {
-				console.error(e);
-			});
-	});
+   return new Promise ((resolve, reject) => {
+      https.get(url, (res) => {
+         if (res.headers.location) {
+            console.log('\n\n\n\nREDIRECT to:');
+            console.log(res.headers.location);
+            if(res.headers.location.indexOf("https://www.google.com/search") >= 0)
+               return getHttps(res.headers.location);
+         }
+         
+         console.log('statusCode:', res.statusCode);
+         console.log('headers:', res.headers);
+       
+         let data = '';
+         res.on('data', (d) => {
+            data += d;
+         });
+       
+         res.on('end', () => {
+           process.stdout.write(data);
+           resolve(data);
+         });
+       
+       }).on('error', (e) => {
+         console.error(e);
+       });
+   })
+   
 }
 
 const log4js = require("log4js");
@@ -88,114 +90,113 @@ app.post("/upload", function (req, res) {
 
 	console.log({ urlParmas });
 	// Add a request interceptor
-	request(
-		"https://www.google.com/searchbyimage" + urlParmas,
-		{
-			// "followRedirect": false
-		},
-		async (e, result, body) => {
-			console.log("\n\n\n\n\n\n\n", result.headers.location);
-			// if(res.headers.location.indexOf("https://www.google.com/search") >= 0) {
-			const googleResponse = await request(result.headers.location, async (e, googleReult, redirectBody) => {
-				console.log("💎 [node]:", "googleResponse.data: ", result.body);
-				console.log("💎 [node]:", "data keys", Object.keys(result.data));
-				console.log("💎 [node]:", "data body", googleResponse.data);
-				// }
+	request("https://www.google.com/searchbyimage" + urlParmas, {
+      // "followRedirect": false
+   }, async (e, result, body) =>{
+      console.log('\n\n\n\n\n\n\n', result.headers.location)
+            // if(res.headers.location.indexOf("https://www.google.com/search") >= 0) {
+      const googleResponse = await request(result.headers.location, async ( e, googleReult, redirectBody) => {
 
-				// axios
-				// 	.get("https://www.google.com/searchbyimage" + urlParmas, {
-				// 		headers: {
-				// 			"User-Agent": " curl/7.69.1",
-				// 			Accept: "*/*",
-				// 		},
-				// 	})
-				// .then((result) => {
-				// Handle result…
-				// var data = result.data;
-				console.log(data.match(/src=".*[a-z]"/gi));
-				console.log("-".repeat(30), "\n\n");
-				// axios.post(imgUrl, options, function(err, data) {
+         console.log('💎 [node]:', 'googleResponse: ', googleReult)
+         console.log('💎 [node]:', 'googleReult keys', Object.keys(googleReult);
+         console.log('💎 [node]:', 'redirectBody', redirectBody)
+      });
+            // }
 
-				//   if (err) {
-				//     console.log(err)
-				//     res.send(err);
-				//     return;
-				// }
-				if (!data) {
-					res.send("");
-					return;
-				}
-				//fs.writeFileSync('body.txt', data);
-				console.log({ data });
-				var mtch = data.match('HREF="([^"]*)');
 
-				if (mtch && mtch.length == 2) {
-					var _res = res;
-					console.log(mtch);
-					var url = mtch[1];
+	// axios
+	// 	.get("https://www.google.com/searchbyimage" + urlParmas, {
+	// 		headers: {
+	// 			"User-Agent": " curl/7.69.1",
+	// 			Accept: "*/*",
+	// 		},
+	// 	})
+		// .then((result) => {
+			// Handle result…
+			// var data = result.data;
+         console.log(data.match(/src=".*[a-z]"/gi))
+         console.log('-'.repeat(30), '\n\n')
+			// axios.post(imgUrl, options, function(err, data) {
 
-					var headers = {
-						"User-Agent": "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)",
-					};
-					var getData = {
-						url: url,
-						headers: headers,
-					};
-					request(getData, function (error, response, body) {
-						if (err) {
-							res.send(err);
-							return;
-						}
-						console.log(1);
-						//console.log(body); // Print the google web page.
-						//fs.writeFileSync('ggl.log', body);
-						var similarImgUrls = body.match(/href=\"\/(search\?tbs=simg:[^\"]*)/g);
-						console.dir(similarImgUrls);
-						if (similarImgUrls && similarImgUrls.length > 0) {
-							similarImgUrls = similarImgUrls[0];
-							similarImgUrls = similarImgUrls.replace(/&amp;/g, "&");
-							console.log("****");
-							console.log(similarImgUrls);
-							similarImgUrls = "https://google.com/" + similarImgUrls.substr(7);
-							console.log(similarImgUrls);
-							var getData = {
-								url: similarImgUrls,
-								headers: headers,
-							};
-							request(getData, function (error, response, body) {
-								if (error) {
-									console.log(error);
-									res.send(error);
-								}
-								console.log(2);
-								fs.writeFileSync("ggl2.log", body);
-								var imgs = body.match(/imgurl=(http:\/\/[^&#]*.(?:jpg|gif|png))/g);
-								if (imgs && imgs.length > 0) {
-									lastGglImgs = imgs.map(function (it) {
-										return it.substr(7);
-									});
-									console.log("end" + lastGglImgs.length);
-									_res.send("ok");
-									guessGglImg();
-								} else {
-									console.log("fail");
-									res.send("bad result");
-								}
-							});
-						} else {
-							res.send("bad request [similiar]");
-							console.log("bad request [similiar]");
-						}
-					});
-				}
-				// })
-				// .catch((e) => {
-				// 	console.log('\n\nError!!\n\n');
-				// 	console.log(e);
-				// });
-			});
-		}
-	);
+			//   if (err) {
+			//     console.log(err)
+			//     res.send(err);
+			//     return;
+			// }
+			if (!data) {
+				res.send("");
+				return;
+			}
+			//fs.writeFileSync('body.txt', data);
+			console.log({ data });
+			var mtch = data.match('HREF="([^"]*)');
+
+			if (mtch && mtch.length == 2) {
+				var _res = res;
+				console.log(mtch);
+				var url = mtch[1];
+
+				var headers = {
+					"User-Agent": "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)",
+				};
+				var getData = {
+					url: url,
+					headers: headers,
+				};
+				request(getData, function (error, response, body) {
+					if (err) {
+						res.send(err);
+						return;
+					}
+					console.log(1);
+					//console.log(body); // Print the google web page.
+					//fs.writeFileSync('ggl.log', body);
+					var similarImgUrls = body.match(/href=\"\/(search\?tbs=simg:[^\"]*)/g);
+					console.dir(similarImgUrls);
+					if (similarImgUrls && similarImgUrls.length > 0) {
+						similarImgUrls = similarImgUrls[0];
+						similarImgUrls = similarImgUrls.replace(/&amp;/g, "&");
+						console.log("****");
+						console.log(similarImgUrls);
+						similarImgUrls = "https://google.com/" + similarImgUrls.substr(7);
+						console.log(similarImgUrls);
+						var getData = {
+							url: similarImgUrls,
+							headers: headers,
+						};
+						request(getData, function (error, response, body) {
+							if (error) {
+								console.log(error);
+								res.send(error);
+							}
+							console.log(2);
+							fs.writeFileSync("ggl2.log", body);
+							var imgs = body.match(/imgurl=(http:\/\/[^&#]*.(?:jpg|gif|png))/g);
+							if (imgs && imgs.length > 0) {
+								lastGglImgs = imgs.map(function (it) {
+									return it.substr(7);
+								});
+								console.log("end" + lastGglImgs.length);
+								_res.send("ok");
+								guessGglImg();
+							} else {
+								console.log("fail");
+								res.send("bad result");
+							}
+						});
+					} else {
+						res.send("bad request [similiar]");
+						console.log("bad request [similiar]");
+					}
+				});
+			}
+		// })
+		// .catch((e) => {
+		// 	console.log('\n\nError!!\n\n');
+		// 	console.log(e);
+		// });
+   })
+
 });
 
 function guessGglImg(res) {
