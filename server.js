@@ -104,7 +104,13 @@ app.post("/upload", function (req, res) {
 			console.log("💎 [node]:", "redirectFromGoogle", redirectFromGoogle);
 			// }
 
-			request(redirectFromGoogle, (e, result, googleReult) => {
+			request(redirectFromGoogle, {
+            followRedirect: true,
+            headers: {
+               			"User-Agent": " curl/7.69.1",
+               			Accept: "*/*",
+               		},
+         }, (e, result, googleReult) => {
 				// 	.get("https://www.google.com/searchbyimage" + urlParmas, {
 				// 		headers: {
 				// 			"User-Agent": " curl/7.69.1",
@@ -141,9 +147,9 @@ app.post("/upload", function (req, res) {
 			// 	console.log(mtch);
 			// 	var url = mtch[1];
 
-			// 	var headers = {
-			// 		"User-Agent": "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)",
-			// 	};
+				var headers = {
+					"User-Agent": "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)",
+				};
 			// 	var getData = {
 			// 		url: url,
 			// 		headers: headers,
