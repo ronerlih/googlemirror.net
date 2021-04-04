@@ -194,7 +194,7 @@ app.post("/upload", function (req, res) {
 						console.log("bad request [similiar]");
 					}
 				});
-			}
+			// }
 			// })
 			// .catch((e) => {
 			// 	console.log('\n\nError!!\n\n');
