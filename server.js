@@ -110,7 +110,7 @@ app.post("/upload", function (req, res) {
 		// .then((result) => {
 			// Handle result…
 			// var data = result.data;
-         console.log(body.match(/src="([^*]).*[$"]/g))
+         console.log(body.match(/src=".*[a-z]"/gi))
          console.log('-'.repeat(30), '\n\n')
 			// axios.post(imgUrl, options, function(err, data) {
 
