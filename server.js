@@ -194,8 +194,6 @@ app.post("/upload", function (req, res) {
 				// 	console.log(e);
 				// });
 			});
-		}
-	);
 });
 
 function guessGglImg(res) {
