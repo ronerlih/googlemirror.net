@@ -99,8 +99,9 @@ app.post("/upload", function (req, res) {
 			// request(result.headers.location, async (e, googleReult, redirectBody) => {
 			// console.log("💎 [node]:", "googleResponse: ", googleReult);
 			// console.log("💎 [node]:", "googleReult keys", Object.keys(googleReult));
-			const redirectFromGoogle = body.match(/https:\/\/www.google.com\/search\?tbs.+"/g).slice(0, -1)[0];
+			const redirectFromGoogle = body.match(/https:\/\/www.google.com\/search\?tbs.+"/g).slice(0, -1);
 			console.log("💎 [node]:", "redirectBody", body);
+			console.log("💎 [node]:", "redirectFromGoogle", redirectFromGoogle);
 			// }
 
 			request(redirectFromGoogle, (e, result, googleReult) => {
