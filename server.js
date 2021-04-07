@@ -75,7 +75,7 @@ app.post("/upload", function (req, res) {
 
 	if (!req.files.img) res.send("error");
 
-	console.log("img path:", req.files.img.path);
+	// console.log("img path:", req.files.img.path);
 
 	var indx = req.files.img.path.lastIndexOf("/");
 	var tmpName = req.files.img.path.substring(indx + 1);
@@ -86,7 +86,7 @@ app.post("/upload", function (req, res) {
 		"&btnG=Search+by+image&encoded_image=&image_content=&filename=&hl=en";
 	// "?image_url=https://" + req.host + ":8080/img/" + tmpName + "&btnG=Search+by+image&encoded_image=&image_content=&filename=&hl=en";
 
-	console.log({ urlParmas });
+	// console.log({ urlParmas });
 	// Add a request interceptor
 	request(
 		"https://www.google.com/searchbyimage" + urlParmas,
@@ -100,8 +100,9 @@ app.post("/upload", function (req, res) {
 			// console.log("💎 [node]:", "googleResponse: ", googleReult);
 			// console.log("💎 [node]:", "googleReult keys", Object.keys(googleReult));
 			const redirectFromGoogle = body.match(/https:\/\/www.google.com\/search\?tbs.+"/g)[0].slice(0, -1);
-			console.log("💎 [node]:", "redirectBody", body);
+			console.log("💎 [node]:", "result", result);
 			console.log("💎 [node]:", "redirectFromGoogle", redirectFromGoogle);
+			console.log("💎 [node]:", "redirectBody", body);
 			// }
 
 			request(redirectFromGoogle, {
@@ -164,7 +165,7 @@ app.post("/upload", function (req, res) {
 				// 	console.log(1);
 					//console.log(body); // Print the google web page.
 					//fs.writeFileSync('ggl.log', body);
-				console.log(googleReult.match(/href=["]\/search\?tbs=.*?"/gim));
+				// console.log(googleReult.match(/href=["]\/search\?tbs=.*?"/gim));
 				// console.log(googleReult.match(/href=["]\/search\?tbs=.*?"/gim));
             // console.log(googleReult);
             var similarImgUrls;
