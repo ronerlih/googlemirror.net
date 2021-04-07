@@ -125,7 +125,7 @@ app.post("/upload", function (req, res) {
 				// var data = result.data;
 
             console.log({e})
-            console.log('💎[node]:', {result})
+            console.log('💎[node] headers:\n', result.getHeaders())
             // console.log("googleReult: ",googleReult)
 
 				// console.log(googleReult.match(/≈src=".+\.....?"/gim));
