@@ -172,7 +172,7 @@ app.post("/upload", function (req, res) {
 					// console.log(similarImgUrls);
 					if (similarImgUrls && similarImgUrls.length > 0) {
 						similarImgUrls = similarImgUrls[0].slice(6, -1);
-						similarImgUrls = similarImgUrls.replace(/&amp;/g, "&");
+						// similarImgUrls = similarImgUrls.replace(/\&/g, "&");
 						console.log("****");
 						console.log(similarImgUrls);
 						similarImgUrls = "https://google.com/" + similarImgUrls;
