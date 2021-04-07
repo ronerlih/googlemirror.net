@@ -165,7 +165,7 @@ app.post("/upload", function (req, res) {
 				// 	console.log(1);
 					//console.log(body); // Print the google web page.
 					//fs.writeFileSync('ggl.log', body);
-				// console.log(googleReult.match(/src=".+\.....?"/gim));
+				console.log(googleReult.match(/href=["].*?"/gim));
             console.log(googleReult);
             // var similarImgUrls = googleReult.match(/href=\"\/(search\?tbs=simg:[^\"]*)/g);
             var similarImgUrls = googleReult.match(/var s='data:image.+';/gim);
