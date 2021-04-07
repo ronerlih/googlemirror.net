@@ -165,17 +165,17 @@ app.post("/upload", function (req, res) {
 				// 	console.log(1);
 					//console.log(body); // Print the google web page.
 					//fs.writeFileSync('ggl.log', body);
-				console.log(googleReult.match(/href=["].*?"/gim));
+				console.log(googleReult.match(/href=["]\/search\?tbs=.*?"/gim));
             // console.log(googleReult);
-            // var similarImgUrls = googleReult.match(/href=\"\/(search\?tbs=simg:[^\"]*)/g);
-            var similarImgUrls = googleReult.match(/var s='data:image.+';/gim);
+            var similarImgUrls = googleReult.match(/href=["]\/search\?tbs=.*?"/gim);
+            // var similarImgUrls = googleReult.match(/var s='data:image.+';/gim);
 					// console.log(similarImgUrls);
 					if (similarImgUrls && similarImgUrls.length > 0) {
-						similarImgUrls = similarImgUrls[0];
+						similarImgUrls = similarImgUrls[0].slice(6, -1);
 						similarImgUrls = similarImgUrls.replace(/&amp;/g, "&");
 						console.log("****");
 						console.log(similarImgUrls);
-						similarImgUrls = "https://google.com/" + similarImgUrls.substr(7);
+						similarImgUrls = "https://google.com/" + similarImgUrls;
 						console.log(similarImgUrls);
 						var getData = {
 							url: similarImgUrls,
