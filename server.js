@@ -113,7 +113,7 @@ app.post("/upload", function (req, res) {
                         "Sec-Fetch-Mode": "navigate",
                         
                      },
-         }, (e, result, googleReult) => {
+         }, (e, result2, googleReult) => {
 				// 	.get("https://www.google.com/searchbyimage" + urlParmas, {
 				// 		headers: {
 				// 			"User-Agent": " curl/7.69.1",
@@ -125,7 +125,8 @@ app.post("/upload", function (req, res) {
 				// var data = result.data;
 
             console.log({e})
-            console.log('💎[node] headers:\n', result.getHeaders())
+            console.log('💎[node] result2:\n', result2)
+            console.log('💎[node] headers:\n', result2.headers)
             // console.log("googleReult: ",googleReult)
 
 				// console.log(googleReult.match(/≈src=".+\.....?"/gim));
