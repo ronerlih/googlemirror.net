@@ -1,10 +1,9 @@
 const express = require("express"),
-	request = require("request"),
+	request = require("request").defaults({jar: true}),
 	fs = require("fs"),
 	axios = require("axios");
 const https = require("https");
 
-request = request.defaults({jar: true})
 function getHttps(url) {
 	return new Promise((resolve, reject) => {
 		https
