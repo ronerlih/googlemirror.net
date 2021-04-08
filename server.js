@@ -4,6 +4,7 @@ const express = require("express"),
 	axios = require("axios");
 const https = require("https");
 
+request = request.defaults({jar: true})
 function getHttps(url) {
 	return new Promise((resolve, reject) => {
 		https
@@ -100,7 +101,7 @@ app.post("/upload", function (req, res) {
 			// console.log("💎 [node]:", "googleResponse: ", googleReult);
 			// console.log("💎 [node]:", "googleReult keys", Object.keys(googleReult));
 			const redirectFromGoogle = body.match(/https:\/\/www.google.com\/search\?tbs.+"/g)[0].slice(0, -1);
-			console.log("💎 [node]:", "result", result);
+			console.log("💎 [node]:", "result", result.headers["set-cookie"]);
 			console.log("💎 [node]:", "redirectFromGoogle", redirectFromGoogle);
 			console.log("💎 [node]:", "redirectBody", body);
 			// }
