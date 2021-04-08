@@ -126,7 +126,7 @@ app.post("/upload", function (req, res) {
 
             // console.log({e})
             console.log('💎[node] googleReult:\n', googleReult)
-            // console.log('💎[node] headers2:\n', result2.headers)
+            console.log('💎[node] headers2:\n', result2.headers)
             // console.log('💎[node] jar:\n', request.jar())
             // console.log("googleReult: ",googleReult)
 
@@ -168,7 +168,8 @@ app.post("/upload", function (req, res) {
 					//console.log(body); // Print the google web page.
 					//fs.writeFileSync('ggl.log', body);
 				// console.log(googleReult.match(/href=["]\/search\?tbs=.*?"/gim));
-				// console.log(googleReult.match(/href=["]\/search\?tbs=.*?"/gim));
+				console.log(googleReult.match(/href=["]\/search\?tbs=.*?"/gim));
+				console.log(googleReult.match(/src=\"/gim));
             // console.log(googleReult);
             var similarImgUrls;
             // var similarImgUrls = googleReult.match(/href=["]\/search\?tbs=.*?"/gim);
@@ -183,7 +184,7 @@ app.post("/upload", function (req, res) {
 						console.log(similarImgUrls);
 						var getData = {
 							url: similarImgUrls,
-							headers: headers,
+							// headers: headers,
 						};
 						request(getData, function (error, response, body) {
 							if (error) {
