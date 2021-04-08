@@ -14,8 +14,8 @@ function getHttps(url) {
 					if (res.headers.location.indexOf("https://www.google.com/search") >= 0) return getHttps(res.headers.location);
 				}
 
-				console.log("statusCode:", res.statusCode);
-				console.log("headers:", res.headers);
+				// console.log("statusCode:", res.statusCode);
+				// console.log("headers:", res.headers);
 
 				let data = "";
 				res.on("data", (d) => {
@@ -71,7 +71,7 @@ app.get("/", function (req, res) {
 var lastGglImgs = [];
 
 app.post("/upload", function (req, res) {
-	console.log("\n\n -- img upload");
+	console.log("\n\n📷 new img upload!!");
 
 	if (!req.files.img) res.send("error");
 
@@ -94,15 +94,15 @@ app.post("/upload", function (req, res) {
 			followRedirect: false,
 		},
 		(e, result, body) => {
-			console.log("\n\n\n\n\n\n\n", result.headers.location);
+			// console.log("\n\n\n\n\n\n\n", result.headers.location);
 			// if(res.headers.location.indexOf("https://www.google.com/search") >= 0) {
 			// request(result.headers.location, async (e, googleReult, redirectBody) => {
 			// console.log("💎 [node]:", "googleResponse: ", googleReult);
 			// console.log("💎 [node]:", "googleReult keys", Object.keys(googleReult));
 			const redirectFromGoogle = body.match(/https:\/\/www.google.com\/search\?tbs.+"/g)[0].slice(0, -1);
-			console.log("💎 [node]:", "result", result.headers["set-cookie"]);
-			console.log("💎 [node]:", "redirectFromGoogle", redirectFromGoogle);
-			console.log("💎 [node]:", "redirectBody", body);
+			console.log("💎 [node]:", "result", result.headers);
+			// console.log("💎 [node]:", "redirectFromGoogle", redirectFromGoogle);
+			// console.log("💎 [node]:", "redirectBody", body);
 			// }
 
 			request(redirectFromGoogle, {
@@ -124,13 +124,13 @@ app.post("/upload", function (req, res) {
 				// Handle result…
 				// var data = result.data;
 
-            console.log({e})
-            console.log('💎[node] result2:\n', result2)
-            console.log('💎[node] headers:\n', result2.headers)
+            // console.log({e})
+            // console.log('💎[node] result2:\n', result2)
+            console.log('💎[node] headers2:\n', result2.headers)
             // console.log("googleReult: ",googleReult)
 
 				// console.log(googleReult.match(/≈src=".+\.....?"/gim));
-				console.log("-".repeat(30), "\n\n");
+				// console.log("-".repeat(30), "\n\n");
 				// axios.post(imgUrl, options, function(err, data) {
 
 			//   if (err) {
@@ -189,7 +189,6 @@ app.post("/upload", function (req, res) {
 								console.log(error);
 								res.send(error);
 							}
-							console.log(2);
 							fs.writeFileSync("ggl2.log", body);
 							var imgs = body.match(/imgurl=(http:\/\/[^&#]*.(?:jpg|gif|png))/g);
 							if (imgs && imgs.length > 0) {
