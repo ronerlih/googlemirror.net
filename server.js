@@ -126,11 +126,11 @@ app.post("/upload", function (req, res) {
 
             // console.log({e})
             // console.log('💎[node] googleReult:\n', googleReult)
-            console.log('💎[node] headers2:\n', result2.headers)
+            // console.log('💎[node] headers2:\n', result2.headers)
             // console.log('💎[node] jar:\n', request.jar())
             // console.log("googleReult: ",googleReult)
 
-				// console.log(googleReult.match(/≈src=".+\.....?"/gim));
+				console.log(googleReult.match(/search\?sa=G&hl=en&tbs=simg.+\.....?"/gim));
 				// console.log("-".repeat(30), "\n\n");
 				// axios.post(imgUrl, options, function(err, data) {
 
