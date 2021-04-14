@@ -1,7 +1,7 @@
 const puppeteer = require("puppeteer");
 
 module.exports = async function getImageUrl(url) {
-	const browser = await puppeteer.launch();
+	const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
 	const page = await browser.newPage();
 	await page.goto(url);
 
