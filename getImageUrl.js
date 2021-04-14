@@ -8,6 +8,9 @@ module.exports = async function getImageUrl(url) {
 	// get cookies from rist call
 	const cookies = await page.cookies();
 
+   // screen shot
+	await page.screenshot({ path: "images-screenshot.png", fullPage: true });
+
 
 	// Extract the results from the page.
 	const resultsSelector = 'a[href^="/search?sa=G&hl=en&tbs=simg"]';
