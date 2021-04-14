@@ -30,6 +30,7 @@
     "jimp": "^0.16.1",
     "log4js": "^6.3.0",
     "poster": "X",
+    "puppeteer": "^8.0.0",
     "request": "X",
     "zombie": "X"
   },
