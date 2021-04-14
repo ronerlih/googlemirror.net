@@ -94,6 +94,7 @@ app.post("/upload", async function (req, res) {
       
       // remove params
       imgUrl = imgUrl.slice(0,imgUrl.indexOf("?"))
+      console.log(imgUrl)
       res.end(imgUrl);
 		}
 	);
