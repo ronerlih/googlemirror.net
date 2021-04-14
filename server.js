@@ -3,7 +3,7 @@ const express = require("express"),
 	fs = require("fs"),
 	axios = require("axios");
 const https = require("https");
-const getImageUrl = require("./getImageUrl");
+const getImageUrl = require("./getImageUrl")
 
 function getHttps(url) {
 	return new Promise((resolve, reject) => {
@@ -88,9 +88,40 @@ app.post("/upload", function (req, res) {
 	// "?image_url=https://" + req.host + ":8080/img/" + tmpName + "&btnG=Search+by+image&encoded_image=&image_content=&filename=&hl=en";
 
 	// console.log({ urlParmas });
-	const imgUrl = getImageUrl("https://www.google.com/searchbyimage" + urlParmas);
-   console.log(imgUrl)
-   res.send(imgUrl);
+	// Add a request interceptor
+	request(
+		"https://www.google.com/searchbyimage" + urlParmas,
+		{
+			followRedirect: false,
+		},
+		async (e, result, body) => {
+			// console.log("\n\n\n\n\n\n\n", result.headers.location);
+			// if(res.headers.location.indexOf("https://www.google.com/search") >= 0) {
+			// request(result.headers.location, async (e, googleReult, redirectBody) => {
+			// console.log("💎 [node]:", "googleResponse: ", googleReult);
+			// console.log("💎 [node]:", "googleReult keys", Object.keys(googleReult));
+			const redirectFromGoogle = body.match(/https:\/\/www.google.com\/search\?tbs.+"/g)[0].slice(0, -1);
+			console.log("💎 [node]:", "result", result.headers);
+			// console.log("💎 [node]:", "redirectFromGoogle", redirectFromGoogle);
+			// console.log("💎 [node]:", "redirectBody", body);
+			// }
+
+			// request(redirectFromGoogle, {
+         //    followRedirect: true,
+         //    headers: {
+         //       			"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36",
+         //       			Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+         //                "Sec-Fetch-Mode": "navigate",
+                        
+         //             },
+         // }, (e, result2, googleReult) => 
+         
+         console.log(redirectFromGoogle)
+      const imgUrl = await getImageUrl(redirectFromGoogle);
+      console.log(imgUrl)
+      res.send(imgUrl);
+		}
+	);
 });
 
 function guessGglImg(res) {

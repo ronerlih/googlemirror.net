@@ -15,7 +15,7 @@ module.exports = async function getImageUrl(url) {
 
 	// set cookies from first call
 	await page.setCookie(...cookies);
-console.log(links)
+   console.log({links})
 	await page.goto(links[0], { waitUntil: "networkidle0" });
 
 	const gridResultsSelector = 'div[jsdata*="GRID_STATE"] a';
