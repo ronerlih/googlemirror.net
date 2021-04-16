@@ -25,8 +25,11 @@ module.exports = async function getImageUrl(url) {
 
    // get thumbLink
    thunbLinks = await page.$$(gridResultsSelector)
+   console.log('bfr filter:',{thunbLinks})
+
    thunbLinks = thunbLinks.filter(anchor => anchor.__jsaction)
 
+   console.log({thunbLinks})
    const imagesLinks = [];
    // generate click
 	thunbLinks.map ( async link => {
