@@ -25,24 +25,25 @@ module.exports = async function getImageUrl(url) {
 
    // get thumbLink
    thunbLinks = await page.$$(gridResultsSelector)
-   console.log('bfr', {thunbLinks})
    thunbLinks = thunbLinks.filter(anchor => anchor.__jsaction)
-   console.log('after', {thunbLinks})
 
+   const imagesLinks = [];
    // generate click
-	thunbLinks.map ( link => evaluateClick(link))
+	thunbLinks.map ( link => {
+      evaluateClick(link);
+      const imgResultsSelector = 'a[href*="imgres"]';
+      const imgLinks = await evaluateSelector(imgResultsSelector, "href")
+      imagesLinks = imagesLinks.concat(imgLinks)
+   })
 
-	const imgResultsSelector = 'a[href*="imgres"]';
-
-	const imgLink = await evaluateSelector(imgResultsSelector, "href")
-
+	console.log({imagesLinks})
    // screen shot
 	// await page.screenshot({ path: "images-screenshot.png", fullPage: true });
 
-	const urlParams = new URLSearchParams(imgLink.toString());
-   page.close();
-   return urlParams.get("https://www.google.com/imgres?imgurl")
-	
+	// const urlParams = new URLSearchParams(imgLink.toString());
+   // page.close();
+   // return urlParams.get("https://www.google.com/imgres?imgurl")
+	return "https://gravatar.com/avatar/4977c2c87b44a2ccec8e02dc7c1cf643?s=96&d=https://www.herokucdn.com/images/ninja-avatar-96x96.png"
 
 
 	async function evaluateClick(link) {
