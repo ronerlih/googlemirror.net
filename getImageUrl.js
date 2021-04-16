@@ -23,7 +23,7 @@ module.exports = async function getImageUrl(url) {
 	const gridResultsSelector = 'div[jsdata*="GRID_STATE"] a';
 
    // get thumbLink
-   thunbLinks = await page.$$(gridResultsSelector)
+   const thunbLinks = await page.$$(gridResultsSelector)
    console.log('bfr filter:',{thunbLinks})
    console.log(thumbLinks[1]._remoteObject)
    console.log(thumbLinks[1]._client)
