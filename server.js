@@ -90,11 +90,11 @@ app.post("/upload", async function (req, res) {
 	// console.log({ urlParmas });
 	// Add a request interceptor
 
-      let imgUrl = await getImageUrl("https://www.google.com/searchbyimage" + urlParmas);
-      console.log({imgUrl})
+      let links = await getImageUrl("https://www.google.com/searchbyimage" + urlParmas);
+      console.log({links})
       
       // remove params
-      res.end(imgUrl);
+      res.end(links[0]);
 		}
 	);
 
