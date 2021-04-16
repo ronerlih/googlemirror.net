@@ -40,20 +40,20 @@ module.exports = async function getImageUrl(url) {
 	
 
 	async function evaluateSelector(selector, tag, linksArray) {
-      var args = [selector, tag, linksArray];
+      var argu = [selector, tag, linksArray];
 
 		return await page.evaluate((args) => {
 			const anchors = Array.from(document.querySelectorAll(args[0]));
-			if (args[1] === "click") {
+			if (argu[1] === "click") {
 
 				return anchors
-               .filter(anchor => anchor.__jsaction)
+               .filter(anchor =>  anchor.__jsaction )
                .map((anchor) => {
 
                anchor.click();
                const imgResultsSelector = 'a[href*="imgres"]';
 
-	            args[2].push(await evaluateSelector(imgResultsSelector, "href"));
+	            argu[2].push(await evaluateSelector(imgResultsSelector, "href"));
 
 
             })
@@ -61,9 +61,9 @@ module.exports = async function getImageUrl(url) {
 
 				return anchors.map((anchor) => {
 					const title = anchor.textContent.split("|")[0].trim();
-					return `${anchor[args[1]]}`;
+					return `${anchor[argu[1]]}`;
 				});
 			}
-		}, args);
+		}, argu);
 	}
 }
