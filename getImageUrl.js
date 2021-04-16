@@ -23,7 +23,7 @@ module.exports = async function getImageUrl(url) {
 	const gridResultsSelector = 'div[jsdata*="GRID_STATE"] a';
 
    // get thumbLink
-   const thumbLinks = await page.$$(gridResultsSelector)
+   let thumbLinks = await page.$$(gridResultsSelector)
 
    thumbLinks = thumbLinks.filter((anchor, i) => {
      if(i < 2) {
