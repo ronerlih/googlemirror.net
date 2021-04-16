@@ -23,13 +23,13 @@ module.exports = async function getImageUrl(url) {
 	const gridResultsSelector = 'div[jsdata*="GRID_STATE"] a';
 
    // get thumbLink
-   const thunbLinks = await page.$$(gridResultsSelector)
-   console.log('bfr filter:',{thunbLinks})
+   const thumbLinks = await page.$$(gridResultsSelector)
+   console.log('bfr filter:',{thumbLinks})
    console.log(thumbLinks[1]._remoteObject)
    console.log(thumbLinks[1]._client)
    console.log(thumbLinks[1]._context)
 
-   thunbLinks = thunbLinks.filter(anchor => {
+   thumbLinks = thumbLinks.filter(anchor => {
       console.log('ancohr:', anchor)
       console.log('ancohr jsonValue:', anchor.jsonValue())
       console.log('ancohr asElement:', anchor.asElement())
