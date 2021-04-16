@@ -27,6 +27,7 @@ module.exports = async function getImageUrl(url) {
    // generate click
 	resourcesLinks = await evaluateSelector(gridResultsSelector, "click")
 
+   console.log("resources links after evaluate:", resourcesLinks})
 	// const imgResultsSelector = 'a[href*="imgres"]';
 
 	// const imgLink = await evaluateSelector(imgResultsSelector, "href")
@@ -54,8 +55,9 @@ module.exports = async function getImageUrl(url) {
                anchor.click();
                const imgResultsSelector = 'a[href*="imgres"]';
                
-               console.log(args)
+               console.log({args})
                const links = await evaluateSelector(imgResultsSelector, "href");
+               console.log("\n\n\n\n\n\n 🇨🇦 evaluate selector (links):", links)
 	            linksArray.push(links);
             
             return linksArray;
