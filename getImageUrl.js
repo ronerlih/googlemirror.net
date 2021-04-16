@@ -25,7 +25,7 @@ module.exports = async function getImageUrl(url) {
 	const gridResultsSelector = 'div[jsdata*="GRID_STATE"] a';
 
    // generate click
-	evaluateSelector(gridResultsSelector, "click")
+	evaluateSelector(gridResultsSelector, "click",resourcesLinks)
 
 	// const imgResultsSelector = 'a[href*="imgres"]';
 
@@ -39,8 +39,8 @@ module.exports = async function getImageUrl(url) {
    return resourcesLinks
 	
 
-	async function evaluateSelector(selector, tag) {
-      var args = [selector, tag];
+	async function evaluateSelector(selector, tag, linksArray) {
+      var args = [selector, tag, linksArray];
 
 		return await page.evaluate((args) => {
 			const anchors = Array.from(document.querySelectorAll(args[0]));
@@ -53,7 +53,7 @@ module.exports = async function getImageUrl(url) {
                anchor.click();
                const imgResultsSelector = 'a[href*="imgres"]';
 
-	            resourcesLinks.push(await evaluateSelector(imgResultsSelector, "href"));
+	            args[2].push(await evaluateSelector(imgResultsSelector, "href"));
 
 
             })
