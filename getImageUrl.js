@@ -1,7 +1,7 @@
 const puppeteer = require("puppeteer");
 
 module.exports = async function getImageUrl(url) {
-   const resourcesLinks = [];
+   let resourcesLinks = [];
 	const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
 	const page = await browser.newPage();
 	await page.goto(url);
@@ -25,7 +25,7 @@ module.exports = async function getImageUrl(url) {
 	const gridResultsSelector = 'div[jsdata*="GRID_STATE"] a';
 
    // generate click
-	await evaluateSelector(gridResultsSelector, "click",resourcesLinks)
+	await evaluateSelector(gridResultsSelector, "click")
 
 	// const imgResultsSelector = 'a[href*="imgres"]';
 
@@ -34,19 +34,20 @@ module.exports = async function getImageUrl(url) {
    // screen shot
 	// await page.screenshot({ path: "images-screenshot.png", fullPage: true });
 
-   resourcesLinks.map (link => new URLSearchParams(link.toString()).get("https://www.google.com/imgres?imgurl"))
+   resourcesLinks = resourcesLinks.map (link => new URLSearchParams(link.toString()).get("https://www.google.com/imgres?imgurl"))
    page.close();
    return resourcesLinks
 	
 
-	async function evaluateSelector(selector, tag, linksArray) {
-      var args = [selector, tag, linksArray];
+	async function evaluateSelector(selector, tag) {
+      const linksArray = [];
+      var args = [selector, tag];
 
 		return await page.evaluate((args) => {
 			const anchors = Array.from(document.querySelectorAll(args[0]));
 			if (args[1] === "click") {
 
-				return anchors
+				anchors
                .filter(anchor =>  anchor.__jsaction )
                .map(async (anchor) => {
 
@@ -55,8 +56,9 @@ module.exports = async function getImageUrl(url) {
                
                console.log(args)
                const links = await evaluateSelector(imgResultsSelector, "href");
-	            args[2].push(links);
-
+	            linksArray.push(links);
+            
+            return linksArray;
 
             })
 			} else {
