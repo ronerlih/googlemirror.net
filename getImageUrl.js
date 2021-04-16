@@ -18,7 +18,6 @@ module.exports = async function getImageUrl(url) {
 
 	// set cookies from first call
 	await page.setCookie(...cookies);
-   console.log({links})
 	await page.goto(links[0], { waitUntil: "networkidle0" });
 
 	const gridResultsSelector = 'div[jsdata*="GRID_STATE"] a';
@@ -26,8 +25,18 @@ module.exports = async function getImageUrl(url) {
    // get thumbLink
    thunbLinks = await page.$$(gridResultsSelector)
    console.log('bfr filter:',{thunbLinks})
+   console.log(thumbLinks[1]._remoteObject)
+   console.log(thumbLinks[1]._client)
+   console.log(thumbLinks[1]._context)
 
-   thunbLinks = thunbLinks.filter(anchor => anchor.__jsaction)
+   thunbLinks = thunbLinks.filter(anchor => {
+      console.log('ancohr:', anchor)
+      console.log('ancohr jsonValue:', anchor.jsonValue())
+      console.log('ancohr asElement:', anchor.asElement())
+      console.log('ancohr _client:', anchor._client)
+      console.log('ancohr _remoteObject:', anchor._remoteObject)
+      return "link"
+   })
 
    console.log({thunbLinks})
    const imagesLinks = [];
