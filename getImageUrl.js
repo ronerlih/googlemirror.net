@@ -25,7 +25,7 @@ module.exports = async function getImageUrl(url) {
 	const gridResultsSelector = 'div[jsdata*="GRID_STATE"] a';
 
    // generate click
-	await evaluateSelector(gridResultsSelector, "click")
+	resourcesLinks = await evaluateSelector(gridResultsSelector, "click")
 
 	// const imgResultsSelector = 'a[href*="imgres"]';
 
