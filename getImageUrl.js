@@ -40,9 +40,10 @@ module.exports = async function getImageUrl(url) {
 
 	async function evaluateSelector(selector, tag) {
 		const linksArray = [];
-		var args = [selector, tag];
 
 		return new Promise(async (resolve, reject) => {
+		var args = [selector, tag, resolve];
+
 			await page.evaluate((args) => {
 				const anchors = Array.from(document.querySelectorAll(args[0]));
 				if (args[1] === "click") {
@@ -57,10 +58,10 @@ module.exports = async function getImageUrl(url) {
 							console.log("\n\n\n\n\n\n 🇨🇦 evaluate selector (links):", links);
 							linksArray.push(links);
 
-							resolve(linksArray);
+							args[2](linksArray);
 						});
 				} else {
-					resolve(
+					args[2](
 						anchors.map((anchor) => {
 							const title = anchor.textContent.split("|")[0].trim();
 							return `${anchor[args[1]]}`;
