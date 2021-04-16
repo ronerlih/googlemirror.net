@@ -24,17 +24,15 @@ module.exports = async function getImageUrl(url) {
 
    // get thumbLink
    const thumbLinks = await page.$$(gridResultsSelector)
-   console.log('bfr filter:',{thumbLinks})
-   console.log(thumbLinks[1]._remoteObject)
-   console.log(thumbLinks[1]._client)
-   console.log(thumbLinks[1]._context)
 
-   thumbLinks = thumbLinks.filter(anchor => {
+   thumbLinks = thumbLinks.filter((anchor, i) => {
+     if(i < 2) {
       console.log('ancohr:', anchor)
       console.log('ancohr jsonValue:', anchor.jsonValue())
       console.log('ancohr asElement:', anchor.asElement())
       console.log('ancohr _client:', anchor._client)
       console.log('ancohr _remoteObject:', anchor._remoteObject)
+     }
       return "link"
    })
 
