@@ -27,7 +27,7 @@ module.exports = async function getImageUrl(url) {
    thunbLinks = await page.$$(gridResultsSelector)
    thunbLinks = thunbLinks.filter(anchor => anchor.__jsaction)
    // generate click
-	thunbLinks.map ( link => evaluateClick(link)}
+	thunbLinks.map ( link => evaluateClick(link))
 
 	const imgResultsSelector = 'a[href*="imgres"]';
 
