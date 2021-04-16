@@ -29,7 +29,7 @@ module.exports = async function getImageUrl(url) {
 
    const imagesLinks = [];
    // generate click
-	thunbLinks.map ( link => {
+	thunbLinks.map ( async link => {
       evaluateClick(link);
       const imgResultsSelector = 'a[href*="imgres"]';
       const imgLinks = await evaluateSelector(imgResultsSelector, "href")
