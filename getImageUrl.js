@@ -26,7 +26,8 @@ module.exports = async function getImageUrl(url) {
 
 	thumbLinks = await thumbLinks.filter(async (anchor, i) => {
 		const jsVal = await anchor.jsonValue();
-		return jsVal.__jsaction;
+      console.log(jsVal)
+		return !!jsVal.__jsaction;
 	});
 
 	// console.log({ thumbLinks });
