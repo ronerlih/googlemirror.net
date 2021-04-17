@@ -26,11 +26,10 @@ module.exports = async function getImageUrl(url) {
 
 	thumbLinks = await thumbLinks.filter(async (anchor, i) => {
 		const jsVal = await anchor.jsonValue();
-      console.log(jsVal)
-		return !!jsVal.__jsaction;
+		return jsVal.__jsaction ? true : false;
 	});
 
-	// console.log({ thumbLinks });
+	console.log({ thumbLinks });
 	let imagesLinks = [];
 	// generate click
 	thumbLinks.map(async (link) => {
