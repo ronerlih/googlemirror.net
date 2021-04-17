@@ -36,7 +36,11 @@ module.exports = async function getImageUrl(url) {
 		await evaluateClick(link);
 		const imgResultsSelector = 'a[href*="imgres"]';
 		const imgLinks = await evaluateSelector(imgResultsSelector, "href");
-      imgLinks.map(async link => await new URLSearchParams(link.toString()));
+      imgLinks.map( link =>  {
+         const urlParams = new URLSearchParams(link.toString())
+	      return urlParams.get("https://www.google.com/imgres?imgurl")
+
+         );
 		imagesLinks = imagesLinks.concat(imgLinks);
 	}));
 
@@ -45,7 +49,6 @@ module.exports = async function getImageUrl(url) {
 	// await page.screenshot({ path: "images-screenshot.png", fullPage: true });
 
 	page.close();
-	// return urlParams.get("https://www.google.com/imgres?imgurl")
 	return imagesLinks;
 
 	async function evaluateClick(link) {
