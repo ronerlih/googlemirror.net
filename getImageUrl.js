@@ -32,13 +32,13 @@ module.exports = async function getImageUrl(url) {
 	console.log({ thumbLinks });
 	let imagesLinks = [];
 	// generate click
-	thumbLinks.map(async (link) => {
+	await Promise.all(thumbLinks.map(async (link) => {
 		await evaluateClick(link);
 		const imgResultsSelector = 'a[href*="imgres"]';
 		const imgLinks = await evaluateSelector(imgResultsSelector, "href");
       imgLinks.map (link => new URLSearchParams(link.toString()));
 		imagesLinks = imagesLinks.concat(imgLinks);
-	});
+	}));
 
 	console.log({ imagesLinks });
 	// screen shot
