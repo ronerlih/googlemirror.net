@@ -27,9 +27,9 @@ module.exports = async function getImageUrl(url) {
 	thumbLinks = await thumbLinks.filter(async (anchor, i) => {
 		const jsVal = await anchor.jsonValue();
 		return jsVal.__jsaction ? true : false;
-	});
+	}).slice(0,10);
 
-	console.log({ thumbLinks });
+	// console.log({ thumbLinks });
 	let imagesLinks = [];
 	// generate click
 	await Promise.all(thumbLinks.map(async (link) => {
@@ -40,7 +40,7 @@ module.exports = async function getImageUrl(url) {
 		imagesLinks = imagesLinks.concat(imgLinks);
 	}));
 
-	console.log({ imagesLinks });
+	// console.log({ imagesLinks });
 	// screen shot
 	// await page.screenshot({ path: "images-screenshot.png", fullPage: true });
 
