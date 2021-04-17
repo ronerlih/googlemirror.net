@@ -27,8 +27,9 @@ module.exports = async function getImageUrl(url) {
 
    thumbLinks = thumbLinks.filter((anchor, i) => {
      if(i === 2) {
+        const jsVal =  await anchor.jsonValue();
       console.log('ancohr:', anchor)
-      console.log('ancohr jsonValue:', await anchor.jsonValue())
+      console.log('ancohr jsonValue:', jsVal)
       console.log('ancohr asElement:', anchor.asElement())
       console.log('ancohr _client:', anchor._client)
       console.log('ancohr _remoteObject:', anchor._remoteObject)
