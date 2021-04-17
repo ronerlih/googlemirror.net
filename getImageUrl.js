@@ -36,7 +36,7 @@ module.exports = async function getImageUrl(url) {
 		await evaluateClick(link);
 		const imgResultsSelector = 'a[href*="imgres"]';
 		const imgLinks = await evaluateSelector(imgResultsSelector, "href");
-      imgLinks.map (link => new URLSearchParams(link.toString()));
+      // imgLinks.map(link => new URLSearchParams(link.toString()));
 		imagesLinks = imagesLinks.concat(imgLinks);
 	}));
 
@@ -60,7 +60,7 @@ module.exports = async function getImageUrl(url) {
 		return await page.evaluate((args) => {
 			const anchors = Array.from(document.querySelectorAll(args[0]));
 			return anchors.map((anchor) => {
-				const title = anchor.textContent.split("|")[0].trim();
+				// const title = anchor.textContent.split("|")[0].trim();
 				return `${anchor[args[1]]}`;
 			});
 		}, args);
