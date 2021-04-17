@@ -36,7 +36,7 @@ module.exports = async function getImageUrl(url) {
 		await evaluateClick(link);
 		const imgResultsSelector = 'a[href*="imgres"]';
 		const imgLinks = await evaluateSelector(imgResultsSelector, "href");
-      // imgLinks.map(link => new URLSearchParams(link.toString()));
+      imgLinks.map(async link => await new URLSearchParams(link.toString()));
 		imagesLinks = imagesLinks.concat(imgLinks);
 	}));
 
