@@ -29,13 +29,12 @@ module.exports = async function getImageUrl(url) {
      if(i === 2) {
         const jsVal =  await anchor.jsonValue();
       console.log('ancohr jsonValue:', jsVal)
-      console.log('ancohr asElement:', anchor.asElement())
      }
       return "link"
    })
 
    console.log({thumbLinks})
-   const imagesLinks = [];
+   let imagesLinks = [];
    // generate click
 	thumbLinks.map ( async link => {
       await evaluateClick(link);
