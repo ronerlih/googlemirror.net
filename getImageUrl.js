@@ -35,12 +35,11 @@ module.exports = async function getImageUrl(url) {
 	await Promise.all(thumbLinks.map(async (link) => {
 		await evaluateClick(link);
 		const imgResultsSelector = 'a[href*="imgres"]';
-		const imgLinks = await evaluateSelector(imgResultsSelector, "href");
-      imgLinks.map( link =>  {
+		let imgLinks = await evaluateSelector(imgResultsSelector, "href");
+      imgLinks = imgLinks.map( link =>  {
          const urlParams = new URLSearchParams(link.toString())
 	      return urlParams.get("https://www.google.com/imgres?imgurl")
-
-         );
+      });
 		imagesLinks = imagesLinks.concat(imgLinks);
 	}));
 
