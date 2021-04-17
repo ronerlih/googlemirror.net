@@ -25,7 +25,7 @@ module.exports = async function getImageUrl(url) {
    // get thumbLink
    let thumbLinks = await page.$$(gridResultsSelector)
 
-   thumbLinks = thumbLinks.filter((anchor, i) => {
+   thumbLinks = await thumbLinks.filter(async (anchor, i) => {
      if(i === 2) {
         const jsVal =  await anchor.jsonValue();
       console.log('ancohr:', anchor)
