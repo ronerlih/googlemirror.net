@@ -59,7 +59,7 @@ module.exports = async function getImageUrl(url) {
 	      return urlParams.get("https://www.google.com/imgres?imgurl")
       });
 		imagesLinks = imagesLinks.concat(imgLinks);
-	}));
+	});
 
 	console.log({ imagesLinks });
 	// screen shot
