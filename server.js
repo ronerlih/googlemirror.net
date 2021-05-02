@@ -74,12 +74,10 @@ var lastGglImgs = [];
 app.post("/upload", async function (req, res) {
 	console.log("\n\n📷 new img upload!!");
 
-	if (!req.files.img) res.send("error");
+	if (!req.files.img) res.send("error, no img recieved");
 
-	// console.log("img path:", req.files.img.path);
-
-	var indx = req.files.img.path.lastIndexOf("/");
-	var tmpName = req.files.img.path.substring(indx + 1);
+	var filenameIdx = req.files.img.path.lastIndexOf("/");
+	var tmpName = req.files.img.path.substring(filenameIdx + 1);
 
 	var urlParmas =
 		"?image_url=https://mirror-snapshot-service.herokuapp.com/img/" +
@@ -87,13 +85,10 @@ app.post("/upload", async function (req, res) {
 		"&btnG=Search+by+image&encoded_image=&image_content=&filename=&hl=en";
 	// "?image_url=https://" + req.host + ":8080/img/" + tmpName + "&btnG=Search+by+image&encoded_image=&image_content=&filename=&hl=en";
           
-	// console.log({ urlParmas });
-	// Add a request interceptor
 
       let links = await getImageUrl("https://www.google.com/searchbyimage" + urlParmas);
-      // console.log({links})
       
-      // remove params
+      // send random img
       res.end(links[Math.floor(Math.random() * links.length)]);
 		}
 	);

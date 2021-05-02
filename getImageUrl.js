@@ -15,8 +15,9 @@ module.exports = async function getImageUrl(url) {
 	const resultsSelector = 'a[href^="/search?sa=G&hl=en&tbs=simg"]';
 	const links = await evaluateSelector(resultsSelector, "href");
 
-   console.log({links})
-	// set cookies from first call
+   // console.log({links})
+
+   // set cookies from first call
 	await page.setCookie(...cookies);
 	await page.goto(links[0], { waitUntil: "networkidle0" });
 
@@ -39,7 +40,7 @@ module.exports = async function getImageUrl(url) {
       // get grid images container
       const imgGrid = document.querySelector('div[jsdata*="GRID_STATE"]');
       // get all img anchors
-      const imgAnchors = Array.from(imgGrid.querySelectorAll('div[jsdata*="GRID_STATE"] a'))
+      const imgAnchors = Array.from(imgGrid.querySelectorAll('div[jsdata*="GRID_STATE"] a')).slice(0,20);
       // focus img anchors (ggl script adds the href prop)
       for(let img of imgAnchors) img.focus();
       // get HREFs
@@ -56,7 +57,7 @@ module.exports = async function getImageUrl(url) {
 	// 	return jsVal  ? true : false;
 	// }).slice(0,10);
 
-	console.log({ imgLinks });
+	// console.log({ imgLinks });
 	// let imagesLinks = [];
 	// // generate click
 	// imgLinks.map(async (link) => {
