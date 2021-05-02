@@ -29,7 +29,7 @@ module.exports = async function getImageUrl(url) {
 		return jsVal.__jsaction ? true : false;
 	}).slice(0,10);
 
-	// console.log({ thumbLinks });
+	console.log({ thumbLinks });
 	let imagesLinks = [];
 	// generate click
 	await Promise.all(thumbLinks.map(async (link) => {
@@ -37,7 +37,7 @@ module.exports = async function getImageUrl(url) {
 		const imgResultsSelector = 'a[href*="imgres"]';
 		let imgLinks = await evaluateSelector(imgResultsSelector, "href");
       imgLinks = imgLinks.map( link =>  {
-         console.log({imgLinks})
+         // console.log({imgLinks})
          const urlParams = new URLSearchParams(link.toString())
 	      return urlParams.get("https://www.google.com/imgres?imgurl")
       });
