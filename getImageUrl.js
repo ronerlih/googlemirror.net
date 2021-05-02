@@ -44,7 +44,10 @@ module.exports = async function getImageUrl(url) {
       for(let img of imgAnchors) img.focus();
       // get HREFs
       return Array.from(imgGrid.querySelectorAll('a[href*="imgres"]'))
-         .map(el => el.href);
+         .map(el => {
+            const urlParams = new URLSearchParams(el.href.toString())
+            return urlParams.get("https://www.google.com/imgres?imgurl")
+         });
    });
 
 	// thumbLinks = await thumbLinks.filter(async (anchor, i) => {
@@ -53,26 +56,26 @@ module.exports = async function getImageUrl(url) {
 	// }).slice(0,10);
 
 	console.log({ imgLinks });
-	let imagesLinks = [];
-	// generate click
-	imgLinks.map(async (link) => {
-		await evaluateClick(link);
-		// const imgResultsSelector = 'a[href*="imgres"]';
-		let imgLinks = await evaluateSelector(imgResultsSelector, "href");
-      imgLinks = imgLinks.map( link =>  {
-         // console.log({imgLinks})
-         const urlParams = new URLSearchParams(link.toString())
-	      return urlParams.get("https://www.google.com/imgres?imgurl")
-      });
-		imagesLinks = imagesLinks.concat(imgLinks);
-	});
+	// let imagesLinks = [];
+	// // generate click
+	// imgLinks.map(async (link) => {
+	// 	await evaluateClick(link);
+	// 	// const imgResultsSelector = 'a[href*="imgres"]';
+	// 	let imgLinks = await evaluateSelector(imgResultsSelector, "href");
+   //    imgLinks = imgLinks.map( link =>  {
+   //       // console.log({imgLinks})
+   //       const urlParams = new URLSearchParams(link.toString())
+	//       return urlParams.get("https://www.google.com/imgres?imgurl")
+   //    });
+	// 	imagesLinks = imagesLinks.concat(imgLinks);
+	// });
 
-	console.log({ imagesLinks });
+	// console.log({ imagesLinks });
 	// screen shot
 	// await page.screenshot({ path: "images-screenshot.png", fullPage: true });
 
 	page.close();
-	return imagesLinks;
+	return imgLinks;
 
 	async function evaluateClick(link) {
 		var arg = link;
