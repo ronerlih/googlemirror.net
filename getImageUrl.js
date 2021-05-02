@@ -15,9 +15,21 @@ module.exports = async function getImageUrl(url) {
 	const resultsSelector = 'a[href^="/search?sa=G&hl=en&tbs=simg"]';
 	const links = await evaluateSelector(resultsSelector, "href");
 
+   console.log({links})
 	// set cookies from first call
 	await page.setCookie(...cookies);
 	await page.goto(links[0], { waitUntil: "networkidle0" });
+
+   try {
+
+      // match images grid container
+      var xpath = "//h3[contains(., 'Visually similar images')]";
+      var matchingElement = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+      console.log(matchingElement)
+   } catch (e) {
+      console.log(e)
+   }
+
 
 	const gridResultsSelector = 'div[jsdata*="GRID_STATE"] a';
 
@@ -29,7 +41,7 @@ module.exports = async function getImageUrl(url) {
 		return jsVal.__jsaction ? true : false;
 	}).slice(0,10);
 
-	console.log({ thumbLinks });
+	// console.log({ thumbLinks });
 	let imagesLinks = [];
 	// generate click
 	await Promise.all(thumbLinks.map(async (link) => {
