@@ -77,6 +77,10 @@ module.exports = async function getImageUrl(url) {
 	// await page.screenshot({ path: "images-screenshot.png", fullPage: true });
 
 	page.close();
+   browser.close();
+
+   const used = process.memoryUsage().heapUsed / 1024 / 1024;
+   console.log(`The script uses approximately ${used} MB`);
 	return imgLinks;
 
 	async function evaluateClick(link) {
