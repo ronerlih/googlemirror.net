@@ -20,33 +20,38 @@ module.exports = async function getImageUrl(url) {
 	await page.setCookie(...cookies);
 	await page.goto(links[0], { waitUntil: "networkidle0" });
 
-   try {
+   // try {
 
-      // match images grid container
-      var xpath = "//h3[contains(., 'Visually similar images')]";
-      var matchingElement = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-      console.log(matchingElement)
-   } catch (e) {
-      console.log(e)
-   }
+   //    // match images grid container
+   //    var xpath = "//h3[contains(., 'Visually similar images')]";
+   //    var matchingElement = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+   //    console.log(matchingElement)
+   // } catch (e) {
+   //    console.log(e)
+   // }
 
 
-	const gridResultsSelector = 'div[jsdata*="GRID_STATE"] a';
+	// const gridResultsSelector = 'div[jsdata*="GRID_STATE"] a';
 
-	// get thumbLink
-	let thumbLinks = await page.$$(gridResultsSelector);
+	// // get thumbLink
+	// let thumbLinks = await page.$$(gridResultsSelector);
+   let imgLinks = await page.evaluate(async () => {
+      const imgResultsSelector = 'a[href*="imgres"]';
+      return document.querySelectorAll(imgResultsSelector)
+         .map(el => el.href);
+   });
 
-	thumbLinks = await thumbLinks.filter(async (anchor, i) => {
-		const jsVal = await anchor.jsonValue();
-		return jsVal.__jsaction ? true : false;
-	}).slice(0,10);
+	// thumbLinks = await thumbLinks.filter(async (anchor, i) => {
+	// 	const jsVal = await anchor.jsonValue();
+	// 	return jsVal.__jsaction ? true : false;
+	// }).slice(0,10);
 
 	// console.log({ thumbLinks });
 	let imagesLinks = [];
 	// generate click
-	await Promise.all(thumbLinks.map(async (link) => {
+	imgLinks.map(async (link) => {
 		await evaluateClick(link);
-		const imgResultsSelector = 'a[href*="imgres"]';
+		// const imgResultsSelector = 'a[href*="imgres"]';
 		let imgLinks = await evaluateSelector(imgResultsSelector, "href");
       imgLinks = imgLinks.map( link =>  {
          // console.log({imgLinks})
@@ -56,7 +61,7 @@ module.exports = async function getImageUrl(url) {
 		imagesLinks = imagesLinks.concat(imgLinks);
 	}));
 
-	// console.log({ imagesLinks });
+	console.log({ imagesLinks });
 	// screen shot
 	// await page.screenshot({ path: "images-screenshot.png", fullPage: true });
 
@@ -68,7 +73,6 @@ module.exports = async function getImageUrl(url) {
 		 await page.evaluate((arg) => {
 			arg.click();
 		}, arg);
-      page.goBack();
       return;
 	}
 	async function evaluateSelector(selector, tag) {
