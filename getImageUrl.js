@@ -36,9 +36,13 @@ module.exports = async function getImageUrl(url) {
 	// // get thumbLink
 	// let thumbLinks = await page.$$(gridResultsSelector);
    let imgLinks = await page.evaluate(async (sel) => {
-      // const imgResultsSelector = 'a[href*="imgres"]';
-      const imgGrid = document.querySelectorAll('div[jsdata*="GRID_STATE"] a');
-      for(let img of imgGrid) img.focus();
+      // get grid images container
+      const imgGrid = document.querySelector('div[jsdata*="GRID_STATE"]');
+      // get all img anchors
+      const imgAnchors = Array.from(imgGrid.querySelectorAll('div[jsdata*="GRID_STATE"] a'))
+      // focus img anchors (ggl script adds the href prop)
+      for(let img of imgAnchors) img.focus();
+      // get HREFs
       return Array.from(imgGrid.querySelectorAll('a[href*="imgres"]'))
          .map(el => el.href);
    });
