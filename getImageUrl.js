@@ -47,7 +47,8 @@ module.exports = async function getImageUrl(url) {
          .map(el => {
             const urlParams = new URLSearchParams(el.href.toString())
             return urlParams.get("https://www.google.com/imgres?imgurl")
-         });
+         })
+         .filter(src => src.match(/jpg|jpeg|webp|png/gi));
    });
 
 	// thumbLinks = await thumbLinks.filter(async (anchor, i) => {

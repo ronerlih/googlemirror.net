@@ -94,7 +94,7 @@ app.post("/upload", async function (req, res) {
       // console.log({links})
       
       // remove params
-      res.end(links[0]);
+      res.end(links[Math.floor(Math.random() * links.length)]);
 		}
 	);
 
