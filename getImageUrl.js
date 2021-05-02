@@ -37,7 +37,7 @@ module.exports = async function getImageUrl(url) {
 	// let thumbLinks = await page.$$(gridResultsSelector);
    let imgLinks = await page.evaluate(async () => {
       const imgResultsSelector = 'a[href*="imgres"]';
-      return document.querySelectorAll(imgResultsSelector)
+      return Array.from(document.querySelectorAll(imgResultsSelector))
          .map(el => el.href);
    });
 
