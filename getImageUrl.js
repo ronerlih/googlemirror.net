@@ -35,11 +35,11 @@ module.exports = async function getImageUrl(url) {
 
 	// // get thumbLink
 	// let thumbLinks = await page.$$(gridResultsSelector);
-   let imgLinks = await page.evaluate(async () => {
-      const imgResultsSelector = 'a[href*="imgres"]';
-      return Array.from(document.querySelectorAll(imgResultsSelector))
+   let imgLinks = await page.evaluate(async (sel) => {
+      // const imgResultsSelector = 'a[href*="imgres"]';
+      return Array.from(document.querySelectorAll(sel))
          .map(el => el.href);
-   });
+   }, 'a[href*="imgres"]');
 
 	// thumbLinks = await thumbLinks.filter(async (anchor, i) => {
 	// 	const jsVal = await anchor.jsonValue();
