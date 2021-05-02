@@ -53,9 +53,11 @@ module.exports = async function getImageUrl(url) {
 
 	async function evaluateClick(link) {
 		var arg = link;
-		return await page.evaluate((arg) => {
+		 await page.evaluate((arg) => {
 			arg.click();
 		}, arg);
+      page.goBack();
+      return;
 	}
 	async function evaluateSelector(selector, tag) {
 		var args = [selector, tag];

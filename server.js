@@ -55,8 +55,8 @@ app.configure(function () {
 	);
 	app.use(express.methodOverride());
 	app.use(express.cookieParser());
-	app.use(express.session({ secret: "batman" }));
-	app.use(app.router);
+	// app.use(express.session({ secret: "batman" }));
+	// app.use(app.router);
 
 	app.use(express.static(__dirname + "/public"));
 });
