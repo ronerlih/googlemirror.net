@@ -37,6 +37,7 @@ module.exports = async function getImageUrl(url) {
 		const imgResultsSelector = 'a[href*="imgres"]';
 		let imgLinks = await evaluateSelector(imgResultsSelector, "href");
       imgLinks = imgLinks.map( link =>  {
+         console.log({imgLinks})
          const urlParams = new URLSearchParams(link.toString())
 	      return urlParams.get("https://www.google.com/imgres?imgurl")
       });

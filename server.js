@@ -86,12 +86,12 @@ app.post("/upload", async function (req, res) {
 		tmpName +
 		"&btnG=Search+by+image&encoded_image=&image_content=&filename=&hl=en";
 	// "?image_url=https://" + req.host + ":8080/img/" + tmpName + "&btnG=Search+by+image&encoded_image=&image_content=&filename=&hl=en";
-
+          
 	// console.log({ urlParmas });
 	// Add a request interceptor
 
       let links = await getImageUrl("https://www.google.com/searchbyimage" + urlParmas);
-      console.log({links})
+      // console.log({links})
       
       // remove params
       res.end(links[0]);
