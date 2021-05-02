@@ -46,7 +46,7 @@ module.exports = async function getImageUrl(url) {
 	// 	return jsVal.__jsaction ? true : false;
 	// }).slice(0,10);
 
-	// console.log({ thumbLinks });
+	console.log({ imgLinks });
 	let imagesLinks = [];
 	// generate click
 	imgLinks.map(async (link) => {
