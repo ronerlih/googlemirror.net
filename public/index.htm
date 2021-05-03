@@ -15,9 +15,9 @@
 									        ::-webkit-scrollbar-button {background: #ccc}
 									        ::-webkit-scrollbar-track-piece {background: #ccc}
 									        ::-webkit-scrollbar-thumb {background: #888}
-                                   :root {
-                                    --frame-padding: 20px;
-                                   }
+			                                :root {
+			                                 --frame-padding: 20px;
+			                                }
 			                          *{box-sizing: border-box;}
 									        html{       overflow-x: hidden;
 									                    text-align:center;
@@ -26,10 +26,19 @@
 									        body{       margin:0px;
 											  					/* background-color: black; */
 			                                               }
-			                          
-                                    video, canvas, #img {
-                                       padding: var(--frame-padding)
 
+			                                 video, canvas, #img {
+			                                    padding: var(--frame-padding)
+
+			                                 }
+                                    .outer-frame{
+                                      position: relative;
+                                      display: block; 
+                                      margin: auto;
+                                       overflow: hidden;
+                                    }
+                                    .show-border{
+                                       border: 4px solid black;
                                     }
 									        video{
 									                    position: absolute;
@@ -135,7 +144,8 @@
 											  					margin-right: auto;
 																display: block;
 									*/
-			                                       height: 100vh;
+                           overflow: hidden;
+			                                       height: 100%;
 												  				top:0px;
 																position: absolute;
 																left: 50%;
@@ -170,9 +180,9 @@
 									                        width: calc(100% - 2px);
 									                        border-radius: 4px;
 									                        font-family: arial;
-                                                   border: 0.5px solid #626569;
+			                                                border: 0.5px solid #626569;
 
-                                                         }
+			                                                      }
 									        #allowCamera{
 									                    position: absolute;
 									                    top:0px;
@@ -337,16 +347,16 @@
 		</div>
 
 		<div id="uiFrame"></div>
-
-			<video id="video "  autoplay></video>
+		<div class="outer-frame">
+			<video id="video " autoplay></video>
 
 			<canvas id="canvas"> </canvas>
-		<div id="img-container">
+			<div id="img-container">
 				<img id="img" class="frame" alt="sorry.. a broken link, please wait for the next one" />
-			<div id="systemMessege"><p id="p5"></p></div>
-			<div id="googleUrlDisplay"></div>
+				<div id="systemMessege"><p id="p5"></p></div>
+				<div id="googleUrlDisplay"></div>
+			</div>
 		</div>
-
 		<div id="appleUsersPage">
 			<div id="p1">
 				<p id="p3">..Oh Shoot<br /></p>
@@ -415,6 +425,8 @@
 			function successCallbackVideo(stream) {
 				setTimeout(function () {
 					$("#allowCamera").hide();
+
+               // show outer border
 					if (video.mozSrcObject !== undefined) {
 						video.mozSrcObject = stream;
 					} else if (video.srcObject !== undefined) {
@@ -423,8 +435,18 @@
 						video.src = (window.URL && window.URL.createObjectURL(stream)) || stream;
 					}
 					video.play();
+     
+
 					setTimeout(function () {
-						uiFrame.style.height = String(video.clientHeight + "px");
+                 
+                  // set outer frame
+                  $(".outer-frame").css({
+                     height: video.videoHeight +'px',
+                     width: video.videoWidth +'px',
+
+                  }).addClass('show-border')
+                  // block for next content
+						uiFrame.style.height = String(video.videoHeight + "px");
 						uiFrame.style.display = "block";
 						startGoogleMirrorTimers();
 					}, 200);
@@ -525,7 +547,7 @@
 				//catch all devices video initiation timing
 				setTimeout(function () {
 					setElemetsSizes();
-				}, 1000);
+				}, 1);
 				console.log("googleMirror timers restarted.. get ready.. ");
 			}
 			function fadeCameraIn() {
@@ -632,7 +654,7 @@
 				$("#img").width(videoElementWidth);
 				$("#img").height(videoElementHeight);
 				$("#img-container").width(videoElementWidth);
-				$("#infoDiv").css("margin-top", videoElementHeight + 80);
+				// $("#infoDiv").css("margin-top", videoElementHeight + 80);
 				//                $('#loadingSpinner').css('top', ( videoElementHeight + 100 ) * 0.5 );
 				$("#infoDiv, #studioCredit").show();
 				var docHeight = $("#infoDiv").height() + $("#infoDiv").offset();
