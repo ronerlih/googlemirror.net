@@ -16,7 +16,7 @@
 									        ::-webkit-scrollbar-track-piece {background: #ccc}
 									        ::-webkit-scrollbar-thumb {background: #888}
 			                                :root {
-			                                 --frame-padding: 20px;
+			                                 --frame-padding: 2px;
 			                                }
 			                          *{box-sizing: border-box;}
 									        html{       overflow-x: hidden;
@@ -28,17 +28,41 @@
 			                                               }
 
 			                                 video, canvas, #img {
-			                                    padding: var(--frame-padding)
-
+			                                    padding: var(--frame-padding);
 			                                 }
+                                          /* video,#img,canvas {
+                                             background: linear-gradient(115deg, #4285f4, rgba(255,0,0,0) 70.71%), 
+                                                linear-gradient(224deg, #ea4335, rgba(0,255,0,0) 70.71%), 
+                                                linear-gradient(75deg, #fbbc05, rgba(0,0,255,0) 70.71%), 
+                                                linear-gradient(282deg, #34a853, rgba(0,0,255,0) 70.71%);
+                                          } */
+                                          #mobile-frame{
+                                             display: none;
+                                             border: 15px inset white;
+                                             box-shadow:   0px 0px 0px 2px inset black;
+                                             position: absolute;
+                                             z-index: 100;
+                                             width: 100vw ;
+                                             height: calc(100vh - 140px);
+
+                                          }
+                                          .main-frame {
+                                             border: none;
+                                             box-shadow:   0px 0px 0px 2px inset black;
+
+                                          }
+                                          .show-main-frame {
+                                             border: 15px inset white;
+                                          }
                                     .outer-frame{
                                       position: relative;
                                       display: block; 
                                       margin: auto;
+                                       margin-top: 20px;
                                        overflow: hidden;
                                     }
                                     .show-border{
-                                       border: 4px solid black;
+                                       border: 2px solid black;
                                     }
 									        video{
 									                    position: absolute;
@@ -113,8 +137,8 @@
 									        #googleUrlDisplay{
 			                             display: none;
 									                    position: absolute;
-									                    left: 0px;
-									                    bottom: 21px;
+									                    left: 21px;
+									                    bottom: 2px;
 			                                    border: 0.5px solid #626569
 			;
 									/*
@@ -150,7 +174,8 @@
 																position: absolute;
 																left: 50%;
 																-webkit-transform: translateX(-50%);
-																transform: translateX(-50%)
+																transform: translateX(-50%);
+                                                padding :20px;
 											  }
 									        #img{       top:0px;
 									                    display:none;
@@ -170,7 +195,7 @@
 									        #systemMessege{ display: none;
 									                        position: relative;
 									                        left: 1px;
-									                        top: 21px;
+									                        top: -16px;
 									                        color: gray;
 									                        z-index: 1;
 									                        text-align: left;
@@ -200,6 +225,8 @@
 						  position: relative;
 						  margin: 0 auto;
 						  width: 70px;
+                    top: -35px;
+                    /* left: -35px; */
 
 						}
 						      .loader::before {
@@ -276,11 +303,16 @@
 									        #infoDiv{   margin: 0px 0px 0px;
 									                    z-index: 0;
 									                    display: none;
+                                               margin: auto;
 									                    max-height: 999999px;
+                                               position: relative;
+                                               /* padding: 10px; */
 									                    line-height: 1.2;
 									                    text-align: left;
 									                    width:100vw;
-															  background-color: white;}
+															  background-color: white;
+                                               max-width: 600px;}
+                                               
 									        #appleUsersPage{display: none;
 									                    margin: 15px 0px ;
 									                    padding-top:10px;
@@ -301,10 +333,10 @@
 									                        /* background: rgba(90,90,90,0.1); */
 									                        /* border: 1px solid rgba(119, 153, 201, 0.5); */
 									                        /* border-radius: 6px; */
-									                        padding: 10px 10px 10px;
-									                        margin: 0px 0px 0px;
+									                        padding: 0px 10px 10px;
+									                        margin: 0px 10px 0px!important;
 																	padding-bottom: 100px;
-									                        text-align: center;
+									                        text-align: left;
 									                    }
 									        #heresAGif{ font-size: 1em; color: gray;}
 									        h1,p2,p{    margin:0px;}
@@ -329,7 +361,16 @@
 									                    text-align: center;
 															  background-color: white;}
 									        .center{    text-align: center;}
-									        #mansplain{ font-size: 1.2em;margin-bottom: 20px; }
+									        #mansplain{ font-size: 1.2em;margin: 10px 0px 20px; }
+@media screen and (max-width: 768px) {
+   .outer-frame {
+      margin: 0px;
+   }
+   #mansplain {
+      margin: 30px 0px 20px;
+   }
+}
+
 		</style>
 	</head>
 	<body>
@@ -345,18 +386,20 @@
 				<a href="http://ronerlihstudio.com" target="_blank">☁ronErlihStudio</a>
 			</p>
 		</div>
-
+      <div id="mobile-frame"></div>
 		<div id="uiFrame"></div>
-		<div class="outer-frame">
-			<video id="video " autoplay></video>
-
-			<canvas id="canvas"> </canvas>
-			<div id="img-container">
-				<img id="img" class="frame" alt="sorry.. a broken link, please wait for the next one" />
-				<div id="systemMessege"><p id="p5"></p></div>
-				<div id="googleUrlDisplay"></div>
-			</div>
-		</div>
+      <div class="outer-frame">
+      <div class="main-frame">
+            <video id="video " autoplay></video>
+   
+            <canvas id="canvas"> </canvas>
+            <div id="img-container">
+               <img id="img" class="frame" alt="sorry.. a broken link, please wait for the next one" />
+               <div id="systemMessege"><p id="p5"></p></div>
+               <div id="googleUrlDisplay"></div>
+            </div>
+         </div>
+      </div>
 		<div id="appleUsersPage">
 			<div id="p1">
 				<p id="p3">..Oh Shoot<br /></p>
@@ -368,9 +411,9 @@
 			</div>
 		</div>
 		<div id="infoDiv">
-			<p id="pTitle">googleMirror<br /></p>
-			<p id="mansplain" class="center">Takes a photo and searchs google for a similar image to it<br /></p>
-			<p id="links">
+			<p id="pTitle">googleMirror.net<br /><font style="font-size: 16px;">2011</font></p>
+			<p id="mansplain" class="center">Searchs for a similar image from Google.<br /></p>
+			<p id="links ">
 				<a href="https://s3-us-west-2.amazonaws.com/ronerlih.com/index_googleMirror.html" target="_blank"> googleMirror Images </a>
 				- photos, GIFs, and clips from googleMirror.<br />
 				<a href="http://ronerlihstudio.com" target="_blank"> ☁ ronErlihStudio </a>
@@ -395,6 +438,9 @@
 			var canvas = document.querySelector("canvas");
 			var video = document.querySelector("video");
 			var uiFrame = document.getElementById("uiFrame");
+			var frame = $(".main-frame");
+			var mobileFrame = $("#mobile-frame");
+			var outerFrame = $(".outer-frame");
 			var errorImageUrl = "https://image.shutterstock.com/z/stock-photo-confused-man-scratching-head-94941589.jpg";
 
 			var opacityValue = 0;
@@ -407,6 +453,7 @@
 			var ajaxState;
 			var ajaxError;
 			var globalData;
+         var framePadding  = 4;
 
 			var errorCallbackVideo = errorCallbackVideo;
 			var successCallbackVideo = successCallbackVideo;
@@ -440,15 +487,31 @@
 					setTimeout(function () {
                  
                   // set outer frame
-                  $(".outer-frame").css({
-                     height: video.videoHeight +'px',
-                     width: video.videoWidth +'px',
+                  outerFrame.css({
+                     height: 'calc(100vh - 140px)',
 
-                  }).addClass('show-border')
+                  }).addClass('show-border');
+
+                  console.log({video})
+                  outerFrame.css({
+                     width: (video.offsetWidth - framePadding - 2) + 'px',
+                  })
+                  
                   // block for next content
-						uiFrame.style.height = String(video.videoHeight + "px");
+						uiFrame.style.height = video.offsetWidth + "px";
 						uiFrame.style.display = "block";
-						startGoogleMirrorTimers();
+
+                  // frame dimentions
+						frame.css({
+                     height: (video.offsetHeight  ) + "px",
+                     width: (video.offsetWidth - (framePadding*2 + 3) ) + "px"
+                  }).addClass('show-main-frame');
+                  frame.css('position','relative');
+
+                  if(innerWidth < 768){
+                     mobileFrame.show();
+                  }
+                  startGoogleMirrorTimers();
 					}, 200);
 					//start the interval -- choo choooooww
 				}, 3000);
@@ -649,11 +712,14 @@
 				return theBlob;
 			}
 			function setElemetsSizes() {
-				videoElementWidth = $("video").width();
-				var videoElementHeight = $("video").height();
+            var videoEl = $("video");
+				videoElementWidth = videoEl.width();
+            // videoEl.width(videoElementWidth)
+				var videoElementHeight = videoEl.height();
 				$("#img").width(videoElementWidth);
 				$("#img").height(videoElementHeight);
 				$("#img-container").width(videoElementWidth);
+            // $("#infoDiv").width(videoElementWidth)
 				// $("#infoDiv").css("margin-top", videoElementHeight + 80);
 				//                $('#loadingSpinner').css('top', ( videoElementHeight + 100 ) * 0.5 );
 				$("#infoDiv, #studioCredit").show();
