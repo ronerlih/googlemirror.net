@@ -731,11 +731,13 @@
 				$("#studioCredit").css("top", docHeight);
 			}
 			function setupCameraStream() {
-				navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+				navigator.getUserMedia = navigator.MediaDevices.getUserMedia || navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 				window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
 
 				if (navigator.getUserMedia) {
-					navigator.getUserMedia({ video: true }, successCallbackVideo, errorCallbackVideo);
+					navigator.MediaDevices.getUserMedia({ video: true })
+                  .then(successCallbackVideo)
+                  .catch(errorCallbackVideo);
 				} else {
 					console.log("Native device media streaming (getUserMedia) not supported in this browser.");
 					errorCallbackVideo();
