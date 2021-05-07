@@ -185,7 +185,8 @@ function fadeCameraIn() {
       clearInterval(intervalReset);
       $("#loadingSpinner").show();
       saveFrame();
-      $("#canvas").show();
+      $("#canvas").show().fadeTo(0.5,0.7);
+
       returnAjax();
    } else {
       opacityValue = opacityValue + 0.001;
