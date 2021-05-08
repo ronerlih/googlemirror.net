@@ -129,7 +129,7 @@ canvas{     display: none;
 #googleUrlDisplay{
    display: none;
             position: absolute;
-            left: 24px;
+            left: 25px;
             bottom: 0px;
           border: 0.5px solid #626569
 ;
@@ -174,7 +174,7 @@ overflow: hidden;
 }
 #systemMessege{ display: none;
    position: relative;
-   left: 4px;
+   left: 5px;
    top: -20px;
    color: gray;
    z-index: 1;
