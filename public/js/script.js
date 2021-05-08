@@ -112,12 +112,11 @@ function processAjax(state, data) {
             $("#img").attr("src", data);
             $("#systemMessege").hide();
             $("#googleUrlDisplay").html(data);
-            $("#canvas").show().fadeTo(100,1);
-            $(video).fadeTo(1000,0);
-
+            $("#canvas").show().fadeTo(500,1)
             setTimeout(function () {
                imageFrontEndTransition();
-            }, 1500);
+
+            }, 500);
          } else {
             console.log(
                "Darn it! google caught our boti-bot" +
