@@ -113,6 +113,7 @@ function processAjax(state, data) {
             $("#systemMessege").hide();
             $("#googleUrlDisplay").html(data);
             $("#canvas").show().fadeTo(100,1);
+            $(video).fadeTo(1000,0);
 
             setTimeout(function () {
                imageFrontEndTransition();
