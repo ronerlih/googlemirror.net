@@ -112,7 +112,7 @@ function processAjax(state, data) {
             $("#img").attr("src", data);
             $("#systemMessege").hide();
             $("#googleUrlDisplay").html(data);
-            $("#canvas").show().fadeTo(500,1)
+            $("#canvas").show().fadeTo(2500,0)
             setTimeout(function () {
                imageFrontEndTransition();
 
