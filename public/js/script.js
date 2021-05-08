@@ -2,6 +2,7 @@ var img = document.querySelector("img");
 var canvas = document.querySelector("canvas");
 var video = document.querySelector("video");
 var uiFrame = document.getElementById("uiFrame");
+var imgContainer =$("#img-container");
 var themeToggle = $("#theme-toggle");
 var frame = $(".main-frame");
 var mobileFrame = $("#mobile-frame");
@@ -111,6 +112,8 @@ function processAjax(state, data) {
             $("#img").attr("src", data);
             $("#systemMessege").hide();
             $("#googleUrlDisplay").html(data);
+            $("#canvas").show().fadeTo(100,1);
+
             setTimeout(function () {
                imageFrontEndTransition();
             }, 1500);
@@ -170,14 +173,15 @@ function imageFrontEndTransition() {
 function startGoogleMirrorTimers() {
    if (firstFadeInFlag == true) {
       intervalReset = setInterval(fadeCameraIn, 10);
+      //catch all devices video initiation timing
+      setTimeout(function () {
+         setElemetsSizes();
+      }, 1);
       firstFadeInFlag = false;
    } else {
       intervalReset = setInterval(fadeCameraIn, 15);
    }
-   //catch all devices video initiation timing
-   setTimeout(function () {
-      setElemetsSizes();
-   }, 1);
+   
    console.log("googleMirror timers restarted.. get ready.. ");
 }
 function fadeCameraIn() {
@@ -185,11 +189,10 @@ function fadeCameraIn() {
       clearInterval(intervalReset);
       $("#loadingSpinner").show();
       saveFrame();
-      $("#canvas").show().fadeTo(1,0.85);
+      $("#canvas").show().fadeTo(500,0.85);
 
       returnAjax();
    } else { 
-      $("#canvas").show().fadeTo(1,1);
       opacityValue = opacityValue + 0.001;
       video.style.opacity = opacityValue;
    }
@@ -208,8 +211,8 @@ function saveFrame() {
    var videoWidth = $("video").width() * 0.25;
    var videoHeight = $("video").height() * 0.25;
    $(canvas).attr({
-      width: videoWidth,
-      height: videoHeight,
+      width: videoWidth ,
+      height: videoHeight ,
    });
    var context = canvas.getContext("2d");
    context.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -222,8 +225,8 @@ function saveFrame() {
    videoWidth = videoWidth * 4;
    videoHeight = videoHeight * 4;
    $(canvas).attr({
-      width: videoWidth,
-      height: videoHeight,
+      width: videoWidth ,
+      height: videoHeight ,
    });
    context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
@@ -290,7 +293,7 @@ function setElemetsSizes() {
    var videoElementHeight = videoEl.height();
    $("#img").width(videoElementWidth);
    $("#img").height(videoElementHeight);
-   $("#img-container").width(videoElementWidth);
+   imgContainer.width(videoElementWidth);
    // $("#infoDiv").width(videoElementWidth)
    // $("#infoDiv").css("margin-top", videoElementHeight + 80);
    //                $('#loadingSpinner').css('top', ( videoElementHeight + 100 ) * 0.5 );
@@ -300,7 +303,9 @@ function setElemetsSizes() {
 }
 function toggleFullScreen() {
    this.style.background = "black"
-   this.style.border = "2px solid darkgray"
+   this.style.border = "2px solid darkgray";
+   this.style.left = "1px";
+
    this.textContent = "🍄"
    if (fullScreenState) {
       location.reload();
