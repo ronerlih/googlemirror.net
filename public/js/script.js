@@ -1,6 +1,7 @@
 var img = document.querySelector("img");
 var canvas = document.querySelector("canvas");
 var video = document.querySelector("video");
+var videoEl = $("video");
 var uiFrame = document.getElementById("uiFrame");
 var imgContainer =$("#img-container");
 var themeToggle = $("#theme-toggle");
@@ -171,12 +172,14 @@ function imageFrontEndTransition() {
 }
 
 function startGoogleMirrorTimers() {
+   setTimeout(function () {
+      setElemetsSizes();
+   }, 1);
+
    if (firstFadeInFlag == true) {
       intervalReset = setInterval(fadeCameraIn, 10);
       //catch all devices video initiation timing
-      setTimeout(function () {
-         setElemetsSizes();
-      }, 1);
+      
       firstFadeInFlag = false;
    } else {
       intervalReset = setInterval(fadeCameraIn, 15);
@@ -284,22 +287,24 @@ function blobToFile(theBlob, fileName) {
    return theBlob;
 }
 function setElemetsSizes() {
-   themeToggle.show();
-   themeToggle.on('click', toggleFullScreen)
-
-   var videoEl = $("video");
    videoElementWidth = videoEl.width();
-   // videoEl.width(videoElementWidth)
    var videoElementHeight = videoEl.height();
    $("#img").width(videoElementWidth);
    $("#img").height(videoElementHeight);
+
+   if (firstFadeInFlag) {
+
+   themeToggle.show();
+   themeToggle.on('click', toggleFullScreen);
+
    imgContainer.width(videoElementWidth);
-   // $("#infoDiv").width(videoElementWidth)
-   // $("#infoDiv").css("margin-top", videoElementHeight + 80);
-   //                $('#loadingSpinner').css('top', ( videoElementHeight + 100 ) * 0.5 );
    $("#infoDiv, #studioCredit").show();
    var docHeight = $("#infoDiv").height() + $("#infoDiv").offset();
    $("#studioCredit").css("top", docHeight);
+}
+
+   
+   
 }
 function toggleFullScreen() {
    this.style.background = "black"
