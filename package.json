@@ -28,7 +28,7 @@
     "express": "3.x",
     "form-data": "^3.0.0",
     "jimp": "^0.16.1",
-    "log4js": "^6.3.0",
+    "log4js": "^6.4.0",
     "poster": "X",
     "puppeteer": "^8.0.0",
     "request": "X",
